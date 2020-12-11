@@ -5,11 +5,10 @@ CREATE TABLE IF NOT EXISTS `apartments` (
     `apartment_id`      INT UNIQUE NOT NULL AUTO_INCREMENT,
     `name`              VARCHAR(50) NOT NULL,
     `capacity`          TINYINT NOT NULL,
-    `price_night`       DOUBLE NOT NULL,
-    `price_week`        DOUBLE NOT NULL,
-    `price_weekend`     DOUBLE NOT NULL,
+    `price_night`       DECIMAL(8, 2) NOT NULL,
+    `price_week`        DECIMAL(8, 2) NOT NULL,
+    `price_weekend`     DECIMAL(8, 2) NOT NULL,
     `discount`          TINYINT NOT NULL,
-    `image_path`        VARCHAR(50),
 
     CONSTRAINT PK_apartment_id PRIMARY KEY (apartment_id)
 
@@ -40,19 +39,19 @@ CREATE TABLE IF NOT EXISTS `orders`(
     `date_start`        DATE NOT NULL,
     `date_end`          DATE NOT NULL,
     `status`            ENUM('PENDING', 'ACCEPTED', 'DECLINED') NOT NULL DEFAULT 'PENDING',
-    `total_price`       DOUBLE NOT NULL,
+    `total_price`       DECIMAL(8, 2) NOT NULL,
     `apartment_id`      INT,
     `user_id`           INT,
  
     CONSTRAINT PK_order_id PRIMARY KEY (order_id),
-    CONSTRAINT FK_apartment_id FOREIGN KEY (apartment_id)
+    CONSTRAINT FK_apartment_orders FOREIGN KEY (apartment_id)
                                 REFERENCES apartments (apartment_id)
                                 ON UPDATE CASCADE
                                 ON DELETE NO ACTION,
-    CONSTRAINT FK_user_id FOREIGN KEY (user_id)
-                          REFERENCES users (user_id)
-                          ON UPDATE CASCADE
-                          ON DELETE NO ACTION                         
+    CONSTRAINT FK_user_orders FOREIGN KEY (user_id)
+                              REFERENCES users (user_id)
+                              ON UPDATE CASCADE
+                              ON DELETE NO ACTION                         
 
 )ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8mb4;
 
@@ -65,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `contact` (
     `user_id_contact`   INT,
 
     CONSTRAINT PK_contact_id PRIMARY KEY (contact_id),
-    CONSTRAINT FK_user_id_contact FOREIGN KEY (user_id_contact)
+    CONSTRAINT FK_user_contact FOREIGN KEY (user_id_contact)
                                 REFERENCES users (user_id)
                                 ON UPDATE CASCADE
                                 ON DELETE CASCADE
