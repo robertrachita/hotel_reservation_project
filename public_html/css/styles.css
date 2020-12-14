@@ -157,6 +157,7 @@ article img {
 article .bottom {
     display: grid;
     grid-template-areas: "left right";
+    grid-template-columns: 3fr 1fr;
 }
 
 article .bottom .left {
@@ -186,6 +187,14 @@ article .bottom .right {
     margin-left: 20px;
 }
 
+.left .news h6 {
+    font-size: 16px;
+    color: gray;
+    opacity: 0.4;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
 .news div a {
     text-decoration: none;
      color: black;
@@ -212,6 +221,68 @@ article .bottom .right {
     border-bottom: 1px solid darkred;
     box-shadow: 0 0 20px grey;
     text-align: center;
+}
+
+/* Article Content */
+.news_content h1 {
+    text-align: center;
+}
+
+.news_content img {
+    width: 40%;
+    display: block;
+    margin: auto;
+}
+
+.news_content .content_main {
+    display: grid;
+    grid-template-areas: "left right";
+    grid-template-columns: 2fr 1fr;
+}
+
+.news_content .content_main .cleft {
+    grid-area: left;
+}
+
+.news_content .content_main .cright {
+    grid-area: right;
+}
+
+.content_main .cleft p {
+    padding: 10px;
+    text-align: justify;
+    font-size: 18px;
+}
+
+.content_main .cleft h3 {
+    padding: 10px;
+}
+
+.content_main .cright {
+    padding: 30px;
+}
+
+.content_main .cright h1 {
+    background-color: darkred;
+    width: 250px;
+    font-size: 28px;
+    color: whitesmoke;
+    text-align: center;
+    margin: auto;
+}
+
+.content_main .cright .right_news {
+    width: 90%;
+    height: 300px;
+    border: 0px solid white;
+    border-bottom: 1px solid darkred;
+    box-shadow: 0 0 20px grey;
+    text-align: center;
+}
+
+.content_main .cright .right_news img {
+    width: 100%;
+    height: 200px;
 }
 
 /* Footer */
