@@ -5,9 +5,10 @@
     <title>Arjen's Plak</title>
     <link rel='stylesheet' href='css/styles.css' type="text/css">
     <meta charset="utf-8">
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src='js/script.js'></script>-->
+    <script src='js/script.js'></script>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">
+-->
 </head>
 
 <body>
@@ -32,7 +33,7 @@
                 </div>
                 <div class="button_info_right">
                     <form action="#"></form>
-                    <input type="button" name="button_info" value="More Information">
+                    <input type="submit" name="button_info" value="More Information">
                     </form>
                 </div>
             </div>
@@ -45,7 +46,7 @@
                 </div>
                 <div class="button_info_left">
                     <form action="#"></form>
-                    <input type="button" name="button_info" value="More Information">
+                    <input type="submit" name="button_info" value="More Information">
                     </form>
                 </div>
             </div>

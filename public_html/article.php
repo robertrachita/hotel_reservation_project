@@ -5,19 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Articles</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src='js/script.js'></script>
 </head>
 <body>
-    <header>
-        <div class="menu">
-            <a href="#" id="navbar"><img id="headerImages" src="images/Hamburger_icon.jpg" alt="menu_item" width="50px" height="50px"></a>
-        </div>
-        <div class="banner">
-            <img src="images/banner2.png" alt="banner" width="568.42x" height="120px">
-        </div>
-        <div class="account">
-            <a href="#"><img id="headerImages" src="images/43931722-user-icon-account-button-on-dark-background.jpg" alt="account" width="50px" height="50px"></a>
-        </div>
-    </header>
+    <?php include 'php/header.php' ?>
     <article>
         <h1>Articles</h1> <br><br><br>
         <div class="top">
@@ -82,11 +74,6 @@
             </div>
         </div>
     </article>
-    <footer>
-        <a href="#" target="_BLANK" rel="noopener noreferrer"><img src="images/footer/facebook.png" alt="facebook" width="50px" height="50px"></a>
-        <a href="#" target="_BLANK" rel="noopener noreferrer"><img src="images/footer/twitter.png" alt="facebook" width="50px" height="50px"></a>
-        <a href="#" target="_BLANK" rel="noopener noreferrer"><img src="images/footer/insta.png" alt="facebook" width="50px" height="50px"></a>
-        <a href="#" target="_BLANK" rel="noopener noreferrer"><img src="images/footer/linkedin.png" alt="facebook" width="50px" height="50px"></a>
-    </footer>
+    <?php include 'php/footer.php' ?>
 </body>
 </html>

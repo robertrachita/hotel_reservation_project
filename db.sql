@@ -4,6 +4,7 @@ USE `hotel_system`;
 CREATE TABLE IF NOT EXISTS `apartments` (
     `apartment_id`      INT UNIQUE NOT NULL AUTO_INCREMENT,
     `name`              VARCHAR(50) NOT NULL,
+    `description`       VARCHAR,
     `capacity`          TINYINT NOT NULL,
     `price_night`       DECIMAL(8, 2) NOT NULL,
     `price_week`        DECIMAL(8, 2) NOT NULL,
