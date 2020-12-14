@@ -12,39 +12,115 @@
 
 <body>
     <?php include 'php/header.php' ?>
-    <div>
-        <form action="property_management.php?mode=add" method="POST">
-            <input type='submit' value="Add new Apartment">
-        </form>
+    <div class="edit_images">
         <?php
-        $conn = new mysqli("localhost", "root", "");
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-        mysqli_select_db($conn, 'hotel_system')
-            or die("Could not load database: " . $conn->connect_error);
+        error_reporting(E_ERROR | E_PARSE);
+        $id = filter_input(INPUT_GET, 'id');
+        $delete = filter_input(INPUT_GET, 'delete');
+        $header = filter_input(INPUT_GET, 'header');
+        $fileToChange = filter_input(INPUT_GET, 'file');
+        $file_count = filter_input(INPUT_GET, 'filecount');
+        $submit = $_POST['submit'];
+        if ($submit && !empty(array_filter($_FILES['images']['name']))) {
+            
+            $file_number = $file_count;
+            $success = 0;
+            $file_path = "images/apartments/".$id."/";
+            foreach ($_FILES['images']['tmp_name'] as $key => $value) {
+                $file_name = $_FILES['images']['name'][$key];;
+                $file_size = $_FILES['images']['size'][$key];;
+                $file_tmp = $_FILES['images']['tmp_name'][$key];;
+                $file_type = $_FILES['images']['type'][$key];
 
-        $sql = "SELECT `apartment_id`, `name` FROM apartments ;";
-        if ($stmt = $conn->prepare($sql)) {
-            $stmt->execute()
-                or die("could not send the data to the database: " . $conn->error);
-            $stmt->bind_result($id, $apartment_name);
-            $stmt->store_result();
+                if ($file_type == 'image/jpeg' || $file_type == 'image/jpg' || $file_type == 'image/png' || $file_type == 'image/gif') {
+                    if ($file_size > 5242880) {
+                        die("Please upload a smaller file. Max size is 5MB");
+                    } else {
+                        $ext = pathinfo($file_name, PATHINFO_EXTENSION);
+                        $file_name = 'image_' . $file_number . "." . $ext;
+                        move_uploaded_file($file_tmp, $file_path . $file_name);
+                        $success = 1;
+                       
+                        $file_number++;
+                    }
+                } else {
+                    echo "File type not allowed";
+                }
+            }
+            if ($success == 1)
+            {
+                echo "Files uploaded";
+                header("refresh:1;url=edit_images.php?id=".$id);
+                die();
+            }
+        }
+        if ($id) {
+            $path = "images/apartments/" . $id . "/";
+            $file_count = 0;
+            if (is_dir($path)) {
+                $folder = scandir($path);
+                unset($folder[0]);
+                unset($folder[1]);
+                foreach ($folder as $file) {
+                    $file_count++;
+                    if (str_contains($file, 'header_image') !== false) {
+                        echo "<div class='edit_images_box'>
+                <img src='" . $path . $file . "' alt='error'>
+                <form method='POST' action='edit_images.php?header=" . $id . "&file=" . $file . "'>
+                <input type='submit' name='header'  value='Choose as Header' disabled>
+                </form>
+                <form method='POST' action='edit_images.php?delete=" . $id . "&file=" . $file . "'>
+                <input type='submit' name='delete'  value='Delete Image'>
+                </form>
+                </div>";
+                    } else {
+                        echo "<div class='edit_images_box'>
+                <img src='" . $path . $file . "' alt='error'>
+                <form method='POST' action='edit_images.php?header=" . $id . "&file=" . $file . "'>
+                <input type='submit' name='header'  value='Choose as Header'>
+                </form>
+                <form method='POST' action='edit_images.php?delete=" . $id . "&file=" . $file . "'>
+                <input type='submit' name='delete'  value='Delete Image'>
+                </form>
+                </div>";
+                    }
+                }
+            } else {
+                echo "There are no images linked with this apartment";
+            }
+            echo "<div style='margin-top: 25px'><form method='POST' action='edit_images.php?id=" . $id . "&filecount=" . $file_count . "' enctype='multipart/form-data'>
+                <input type='file' name='images[]' id='images' multiple><br>
+                <input type='submit' name='submit' value='Add new Images'>
+            </form></div>";
+        }
+        if ($delete) {
+            $path = "images/apartments/" . $delete . "/" . $fileToChange;
+            unlink($path);
+            echo "File deleted! You will be redirected shortly back to the previous panel";
+            header("refresh:1;url=edit_images.php?id=" . $delete . "");
+            die();
+        }
+        if ($header) {
+            $scan = scandir("images/apartments/" . $header . "/");
+            foreach ($scan as $file) {
+                if (str_contains($file, 'header_image') !== false) {
+                    $ext_old = pathinfo($file, PATHINFO_EXTENSION);
+                    //echo $ext_old;
+                    break;
+                }
+            }
+            $old_name = $fileToChange;
+            $path = "images/apartments/" . $header . "/" . $fileToChange;
+            $ext = pathinfo($path, PATHINFO_EXTENSION);
+            $fileToChange = substr($fileToChange, 0, strlen($fileToChange) - strlen($ext));
+            rename("images/apartments/" . $header . "/header_image." . $ext_old, "images/apartments/" . $header . "/tmp." . $ext_old);
+            rename($path, "images/apartments/" . $header . "/header_image." . $ext);
+            rename("images/apartments/" . $header . "/tmp." . $ext_old, "images/apartments/" . $header . "/" . $fileToChange . $ext_old,);
+            echo "Changes were successful! You will be redirected shortly back to the previous panel";
+            header("refresh:1;url=edit_images.php?id=" . $header . "");
+            die();
         }
         ?>
-        <form onsubmit="location.href='property_management.php?mode=edit&id=' + document.getElementById('input').value; return false;">
-            <input type="submit" value="Edit Apartment" />
-            <select id="input">
-            <?php
-                while ($stmt->fetch()) {
-                    echo "<option value='" . $id . "'>" . $apartment_name . "</option>";
-                }
-                $stmt->close();
-                ?>
-            </select>
-        </form>
-
-        <?php $conn->close(); ?>
     </div>
     <?php include 'php/footer.php' ?>
 </body>

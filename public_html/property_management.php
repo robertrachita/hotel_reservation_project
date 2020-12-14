@@ -28,15 +28,16 @@
 
             $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
             $capacity = filter_input(INPUT_POST, 'capacity', FILTER_SANITIZE_NUMBER_FLOAT);
+            $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
             $price_night = filter_input(INPUT_POST, 'price_night', FILTER_SANITIZE_NUMBER_FLOAT);
             $price_week = filter_input(INPUT_POST, 'price_week', FILTER_SANITIZE_NUMBER_FLOAT);
             $price_weekend = filter_input(INPUT_POST, 'price_weekend', FILTER_SANITIZE_NUMBER_FLOAT);
             $discount = filter_input(INPUT_POST, 'discount', FILTER_SANITIZE_NUMBER_FLOAT);
 
             if (!empty($name) && !empty($capacity)) {
-                $sql = "INSERT INTO `apartments` (`name`, `capacity`, `price_night`, `price_week`, `price_weekend`, `discount`) VALUES (?, ?, ?, ?, ?, ?) ;";
+                $sql = "INSERT INTO `apartments` (`name`, `capacity`, `description`, `price_night`, `price_week`, `price_weekend`, `discount`) VALUES (?, ?, ?, ?, ?, ?, ?) ;";
                 if ($stmt = $conn->prepare($sql)) {
-                    $stmt->bind_param("sddddd", $name, $capacity, $price_night, $price_week, $price_weekend, $discount);
+                    $stmt->bind_param("sdsdddd", $name, $capacity, $description, $price_night, $price_week, $price_weekend, $discount);
                     $stmt->execute()
                         or die("could not send the data to the database: " . $conn->error);
                     $last_id = $conn->insert_id;
@@ -94,7 +95,7 @@
                             die("Please upload a smaller file. Max size is 5MB");
                         } else {
                             $ext = pathinfo($file_name, PATHINFO_EXTENSION);
-                            $file_name = 'image_' . $file_number.".".$ext;
+                            $file_name = 'image_' . $file_number . "." . $ext;
                             move_uploaded_file($file_tmp, $file_path . $file_name);
                             $success = 1;
                             $file_number++;
@@ -120,6 +121,8 @@
                 <input type='text' name='name' id='name' required>
                 <p><label for='capacity'>Capacity</label></p>
                 <input type='text' name='capacity' id='capacity' required>
+                <p><label for='description'>Description</label></p>
+                <textarea id='description' name='description'></textarea>
                 <p><label for='price_night'>Price per night</label></p>
                 <input type='text' name='price_night' id='price_night'>
                 <p><label for='price_week'>Price per week</label></p>
@@ -144,11 +147,11 @@
             mysqli_select_db($conn, 'hotel_system')
                 or die("Could not load database: " . $conn->connect_error);
 
-            $sql = "SELECT `name`, `capacity`, `price_night`, `price_week`, `price_weekend`, `discount` FROM `apartments` WHERE `apartment_id` = " . $id . ";";
+            $sql = "SELECT `name`, `capacity`, `description`, `price_night`, `price_week`, `price_weekend`, `discount` FROM `apartments` WHERE `apartment_id` = " . $id . ";";
             if ($stmt = $conn->prepare($sql)) {
                 $stmt->execute()
                     or die("could not send the data to the database: " . $conn->error);
-                $stmt->bind_result($name, $capacity, $price_night, $price_week, $price_weekend, $discount);
+                $stmt->bind_result($name, $capacity, $description, $price_night, $price_week, $price_weekend, $discount);
                 $stmt->store_result();
                 $stmt->fetch()
                     or die("Could not retrieve data" . $conn->error);
@@ -160,6 +163,8 @@
                 <input type='text' name='name' id='name' value='" . $name . "' required>
                 <p><label for='capacity'>Capacity</label></p>
                 <input type='text' name='capacity' id='capacity' value='" . $capacity . "' required>
+                <p><label for='description'>Description</label></p>
+                <textarea id='description' name='description' >" . $description . "</textarea>
                 <p><label for='price_night'>Price per night</label></p>
                 <input type='text' name='price_night' id='price_night' value='" . $price_night . "'>
                 <p><label for='price_week'>Price per week</label></p>
@@ -170,6 +175,9 @@
                 <input type='text' name='discount' id='discount' value='" . $discount . "'><br>
                 <input type='submit' name='submit_edit'  value='Submit Changes'>
                 <input type='reset' name='reset'>
+            </form>";
+            echo "<form method='POST' action='edit_images.php?id=" . $id . "'>
+            <input type='submit' name='edit_images' value='Edit images'>
             </form>";
             $stmt->close();
             $conn->close();

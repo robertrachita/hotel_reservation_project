@@ -276,8 +276,12 @@ footer {
     background-size: 100% 100%;
     display: flex;
     justify-content: space-around;
-    padding-left: 480px;
-    padding-right: 480px;
+    padding-left: 30%;
+    padding-right: 30%;
+}
+
+#footer_image {
+    margin: 25px;
 }
 
 .wrapper {
@@ -338,6 +342,7 @@ footer {
 
 .formulier {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     padding: 25px;
     text-align: center;
@@ -360,7 +365,7 @@ select {
 input[type=submit],
 input[type=reset] {
     background-color: yellow;
-    color: nlack;
+    color: black;
     padding: 7px 20px;
     margin: 8px 0;
     border: none;
@@ -379,5 +384,32 @@ input[type=reset]:hover {
 input[type=file] {
     padding-left: 60px;
     border: none;
+    border-radius: 4px;
+}
+
+.edit_images {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+}
+
+.edit_images_box {
+    background-color: #ccc;
+    margin-right: 15px;
+    margin-left: 5px;
+    margin-top: 15px;
+    padding: 5px;
+}
+
+.edit_images_box img {
+    width: 100%;
+    max-width: 500px;
+}
+
+textarea {
+    resize: vertical;
+    width: 180px;
+    height: 100px;
+    border: 1px solid #ccc;
     border-radius: 4px;
 }

@@ -33,7 +33,7 @@
                 </div>
                 <div class="button_info_right">
                     <form action="#"></form>
-                    <input type="button" name="button_info" value="More Information">
+                    <input type="submit" name="button_info" value="More Information">
                     </form>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="button_info_left">
                     <form action="#"></form>
-                    <input type="button" name="button_info" value="More Information">
+                    <input type="submit" name="button_info" value="More Information">
                     </form>
                 </div>
             </div>
