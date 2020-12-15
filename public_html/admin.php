@@ -30,16 +30,46 @@
                 or die("could not send the data to the database: " . $conn->error);
             $stmt->bind_result($id, $apartment_name);
             $stmt->store_result();
+            $data_array = array();
+            $index = 0;
+            while ($stmt->fetch()) {
+                $data_array['id'][$index] = $id;
+                $data_array['name'][$index] = $apartment_name;
+                $index++;
+            }
+        } else {
+            die("Could not prepare statement: " . $conn->errno);
         }
+       /* foreach ($data_array as $key => $value)
+        {
+            foreach ($value as $apartment)
+            {
+                echo $key;
+                echo "  ";
+                echo $apartment;
+                echo "<br>";
+            }
+        }*/
         ?>
-        <form onsubmit="location.href='property_management.php?mode=edit&id=' + document.getElementById('input').value; return false;">
+        <form method='POST' onsubmit="location.href='property_management.php?mode=edit&id=' + document.getElementById('input').value; return false;">
             <input type="submit" value="Edit Apartment" />
             <select id="input">
-            <?php
-                while ($stmt->fetch()) {
-                    echo "<option value='" . $id . "'>" . $apartment_name . "</option>";
+                <?php
+                for ($i = 0; $i < $index; $i++ )
+                {
+                    echo "<option value='" . $data_array['id'][$i] . "'>" . $data_array['name'][$i] . "</option>";
                 }
-                $stmt->close();
+                ?>
+            </select>
+        </form>
+        <form method='POST' onsubmit="location.href='delete_ap.php?id=' + document.getElementById('delete').value; return false;">
+            <input type="submit" value="Delete Apartment" />
+            <select id="delete">
+                <?php
+                 for ($i = 0; $i < $index; $i++ )
+                 {
+                     echo "<option value='" . $data_array['id'][$i] . "'>" . $data_array['name'][$i] . "</option>";
+                 }
                 ?>
             </select>
         </form>

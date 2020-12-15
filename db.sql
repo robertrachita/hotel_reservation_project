@@ -4,11 +4,11 @@ USE `hotel_system`;
 CREATE TABLE IF NOT EXISTS `apartments` (
     `apartment_id`      INT UNIQUE NOT NULL AUTO_INCREMENT,
     `name`              VARCHAR(50) NOT NULL,
-    `description`       VARCHAR(250),
+    `description`       VARCHAR(500),
     `capacity`          TINYINT NOT NULL,
-    `price_night`       DECIMAL(8, 2) NOT NULL,
-    `price_week`        DECIMAL(8, 2) NOT NULL,
-    `price_weekend`     DECIMAL(8, 2) NOT NULL,
+    `price_night`       DECIMAL(8,2) NOT NULL,
+    `price_week`        DECIMAL(8,2) NOT NULL,
+    `price_weekend`     DECIMAL(8,2) NOT NULL,
     `discount`          TINYINT NOT NULL,
 
     CONSTRAINT PK_apartment_id PRIMARY KEY (apartment_id)
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `orders`(
     `date_start`        DATE NOT NULL,
     `date_end`          DATE NOT NULL,
     `status`            ENUM('PENDING', 'ACCEPTED', 'DECLINED') NOT NULL DEFAULT 'PENDING',
-    `total_price`       DECIMAL(8, 2) NOT NULL,
+    `total_price`       DECIMAL(8,2) NOT NULL,
     `apartment_id`      INT,
     `user_id`           INT,
  

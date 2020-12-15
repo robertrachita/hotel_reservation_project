@@ -23,9 +23,13 @@
         $submit = $_POST['submit'];
         if ($submit && !empty(array_filter($_FILES['images']['name']))) {
             
-            $file_number = $file_count;
+            $file_number = $file_count - 1;
             $success = 0;
-            $file_path = "images/apartments/".$id."/";
+            $file_path = "images/apartments/".$id ;
+            if (!file_exists($file_path)) {
+                mkdir($file_path, 0777, true);
+            }
+            $file_path .= '/';
             foreach ($_FILES['images']['tmp_name'] as $key => $value) {
                 $file_name = $_FILES['images']['name'][$key];;
                 $file_size = $_FILES['images']['size'][$key];;
@@ -67,10 +71,10 @@
                         echo "<div class='edit_images_box'>
                 <img src='" . $path . $file . "' alt='error'>
                 <form method='POST' action='edit_images.php?header=" . $id . "&file=" . $file . "'>
-                <input type='submit' name='header'  value='Choose as Header' disabled>
+                <input type='submit' name='useless_button'  value='Current Header' disabled>
                 </form>
                 <form method='POST' action='edit_images.php?delete=" . $id . "&file=" . $file . "'>
-                <input type='submit' name='delete'  value='Delete Image'>
+                <button type='submit' class='redonhover' name='delete' >Delete Image</button>
                 </form>
                 </div>";
                     } else {
@@ -80,7 +84,7 @@
                 <input type='submit' name='header'  value='Choose as Header'>
                 </form>
                 <form method='POST' action='edit_images.php?delete=" . $id . "&file=" . $file . "'>
-                <input type='submit' name='delete'  value='Delete Image'>
+                <button type='submit' class='redonhover' name='delete' >Delete Image</button>
                 </form>
                 </div>";
                     }
