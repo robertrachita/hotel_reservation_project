@@ -78,7 +78,8 @@ INSERT INTO `apartments`(`name`,`capacity`) values
 ('Jelle', 4),
 ('Wietse', 4),
 ('Lobke', 5),
-('Maam', 6);
+('Maam', 6),
+('Test', 2);
 /* default bcrypt hash, password is admin, for developing purposes only*/
 INSERT INTO `users`(`last_name`, `first_name`, `country`, `city`, `email`, `password`, `authorisation`) values
     ('Peters', 'Victor', 'Netherlands', 'Groningen', 'admin@admin.com', '$2y$12$DznTtqjtDvfT6RvFfQdL7OmU1l4fsycMhVD38yG7eCO16v3jLzPKy', '1');

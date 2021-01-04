@@ -31,9 +31,9 @@
             }
             $file_path .= '/';
             foreach ($_FILES['images']['tmp_name'] as $key => $value) {
-                $file_name = $_FILES['images']['name'][$key];;
-                $file_size = $_FILES['images']['size'][$key];;
-                $file_tmp = $_FILES['images']['tmp_name'][$key];;
+                $file_name = $_FILES['images']['name'][$key];
+                $file_size = $_FILES['images']['size'][$key];
+                $file_tmp = $_FILES['images']['tmp_name'][$key];
                 $file_type = $_FILES['images']['type'][$key];
 
                 if ($file_type == 'image/jpeg' || $file_type == 'image/jpg' || $file_type == 'image/png' || $file_type == 'image/gif') {

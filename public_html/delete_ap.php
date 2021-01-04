@@ -18,12 +18,13 @@
         $id = filter_input(INPUT_GET, 'id');
         $delete = $_POST['delete'];
         if ($delete) {
-            $conn = new mysqli("localhost", "root", "");
+            $config = parse_ini_file('../config.ini');
+            $conn = new mysqli($config['db_host'], $config['db_user'], $config['db_pass']);
             if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
+                die("Conection failed: " . $conn->connect_errno);
             }
-            mysqli_select_db($conn, 'hotel_system')
-                or die("Could not load database: " . $conn->connect_error);
+            $conn->select_db($config['db_name'])
+                or die("Could not load database: " . $conn->errno);
 
             $sql = "DELETE FROM `apartments` WHERE `apartment_id` = " . $id . " ; ";
             if ($stmt = $conn->prepare($sql)) {
@@ -35,7 +36,7 @@
                 header("refresh:1;url=admin.php");
                 die();
             }
-        }  else {
+        } else {
             echo "<h3>Are you sure you want to delete this apartment?</h3>";
             echo "<form method='POST' action='admin.php'>
             <input type='submit' value='No, go back' name='return' />
@@ -43,7 +44,6 @@
             echo "<form method='POST' action='delete_ap.php?id=" . $id . "'>
             <button type='submit' class='negative'  name='delete' >Yes, Delete Apartment</button>
             </form>";
-        
         }
         ?>
     </div>

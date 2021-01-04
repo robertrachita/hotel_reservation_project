@@ -23,12 +23,13 @@ session_start();
         $submit_new = $_POST['submit_new'];
         $submit_edit = $_POST['submit_edit'];
         if (isset($submit_new)) {
-            $conn = new mysqli("localhost", "root", "");
+            $config = parse_ini_file('../config.ini');
+            $conn = new mysqli($config['db_host'], $config['db_user'], $config['db_pass']);
             if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
+                die("Conection failed: " . $conn->connect_errno);
             }
-            mysqli_select_db($conn, 'hotel_system')
-                or die("Could not load database: " . $conn->connect_error);
+            $conn->select_db($config['db_name'])
+                or die("Could not load database: " . $conn->errno);
 
             $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
             $capacity = filter_input(INPUT_POST, 'capacity', FILTER_SANITIZE_NUMBER_FLOAT);
@@ -64,18 +65,18 @@ session_start();
             }
         }
         if (isset($submit_edit)) {
-            $conn = new mysqli("localhost", "root", "");
+            $config = parse_ini_file('../config.ini');
+            $conn = new mysqli($config['db_host'], $config['db_user'], $config['db_pass']);
             if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
+                die("Conection failed: " . $conn->connect_errno);
             }
-            mysqli_select_db($conn, 'hotel_system')
-                or die("Could not load database: " . $conn->connect_error);
+            $conn->select_db($config['db_name'])
+                or die("Could not load database: " . $conn->errno);
 
             $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
             $capacity = filter_input(INPUT_POST, 'capacity', FILTER_SANITIZE_NUMBER_FLOAT);
             $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
-            if (empty($description))
-            {
+            if (empty($description)) {
                 $description = ' ';
             }
             $price_night = filter_input(INPUT_POST, 'price_night', FILTER_SANITIZE_NUMBER_FLOAT);
@@ -86,7 +87,7 @@ session_start();
             if (!empty($name) && !empty($capacity)) {
                 $id = $_SESSION['edit_id'];
                 unset($_SESSION['edit_id']);
-                $sql = "UPDATE `apartments` SET name = '" . $name . "' , capacity = " . $capacity . " , description = '" . $description . "' , price_night = " . $price_night . " , price_week = " . $price_week . " , price_weekend = " . $price_weekend . " , discount = " . $discount . " WHERE apartment_id = ".$id." ;";
+                $sql = "UPDATE `apartments` SET name = '" . $name . "' , capacity = " . $capacity . " , description = '" . $description . "' , price_night = " . $price_night . " , price_week = " . $price_week . " , price_weekend = " . $price_weekend . " , discount = " . $discount . " WHERE apartment_id = " . $id . " ;";
                 if ($stmt = $conn->prepare($sql)) {
                     $stmt->execute()
                         or die("could not send the data to the database: " . $conn->error);
@@ -190,13 +191,14 @@ session_start();
             </form>";
         } else if ($mode == 'edit') {
             $id = filter_input(INPUT_GET, 'id');
-            $_SESSION['edit_id'] = $id; 
-            $conn = new mysqli("localhost", "root", "");
+            $_SESSION['edit_id'] = $id;
+            $config = parse_ini_file('../config.ini');
+            $conn = new mysqli($config['db_host'], $config['db_user'], $config['db_pass']);
             if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
+                die("Conection failed: " . $conn->connect_errno);
             }
-            mysqli_select_db($conn, 'hotel_system')
-                or die("Could not load database: " . $conn->connect_error);
+            $conn->select_db($config['db_name'])
+                or die("Could not load database: " . $conn->errno);
 
             $sql = "SELECT `name`, `capacity`, `description`, `price_night`, `price_week`, `price_weekend`, `discount` FROM `apartments` WHERE `apartment_id` = " . $id . ";";
             if ($stmt = $conn->prepare($sql)) {

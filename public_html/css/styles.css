@@ -135,6 +135,7 @@ section {
 }
 
 .information {
+    box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -142,6 +143,8 @@ section {
     justify-content: space-between;
     padding: 15px;
     width: 375px;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .button_info_right {
@@ -515,4 +518,97 @@ textarea {
     height: 100px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+
+/* apartment details page*/
+
+#apartment-img {
+    width: 40%;
+    border-radius: 5%
+}
+
+.apartment-container {
+    margin-top: 50px;
+    position: relative;
+    width: 50%;
+}
+
+.mySlides {
+    display: none;
+}
+
+.apartment-container img {
+    vertical-align: middle;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 40%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+.caption-container {
+    text-align: center;
+    background-color: #222;
+    padding: 2px 16px;
+    color: white;
+}
+
+.row {
+    max-height: 100px;
+    overflow-y: scroll;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.column {
+    float: left;
+    width: 16.66%;
+    overflow: hidden;
+}
+
+.demo {
+    opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+    opacity: 1;
 }

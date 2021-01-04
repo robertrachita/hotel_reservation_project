@@ -17,12 +17,13 @@
             <input type='submit' value="Add new Apartment">
         </form>
         <?php
-        $conn = new mysqli("localhost", "root", "");
+        $config = parse_ini_file('../config.ini');
+        $conn = new mysqli($config['db_host'], $config['db_user'], $config['db_pass']);
         if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+            die("Conection failed: " . $conn->connect_errno);
         }
-        mysqli_select_db($conn, 'hotel_system')
-            or die("Could not load database: " . $conn->connect_error);
+        $conn->select_db($config['db_name'])
+            or die("Could not load database: " . $conn->errno);
 
         $sql = "SELECT `apartment_id`, `name` FROM apartments ;";
         if ($stmt = $conn->prepare($sql)) {
