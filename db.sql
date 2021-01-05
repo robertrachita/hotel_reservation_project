@@ -4,11 +4,11 @@ USE `hotel_system`;
 CREATE TABLE IF NOT EXISTS `apartments` (
     `apartment_id`      INT UNIQUE NOT NULL AUTO_INCREMENT,
     `name`              VARCHAR(50) NOT NULL,
-    `description`       VARCHAR,
+    `description`       VARCHAR(500),
     `capacity`          TINYINT NOT NULL,
-    `price_night`       DECIMAL(8, 2) NOT NULL,
-    `price_week`        DECIMAL(8, 2) NOT NULL,
-    `price_weekend`     DECIMAL(8, 2) NOT NULL,
+    `price_night`       DECIMAL(8,2) NOT NULL,
+    `price_week`        DECIMAL(8,2) NOT NULL,
+    `price_weekend`     DECIMAL(8,2) NOT NULL,
     `discount`          TINYINT NOT NULL,
 
     CONSTRAINT PK_apartment_id PRIMARY KEY (apartment_id)
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `orders`(
     `date_start`        DATE NOT NULL,
     `date_end`          DATE NOT NULL,
     `status`            ENUM('PENDING', 'ACCEPTED', 'DECLINED') NOT NULL DEFAULT 'PENDING',
-    `total_price`       DECIMAL(8, 2) NOT NULL,
+    `total_price`       DECIMAL(8,2) NOT NULL,
     `apartment_id`      INT,
     `user_id`           INT,
  
@@ -78,7 +78,8 @@ INSERT INTO `apartments`(`name`,`capacity`) values
 ('Jelle', 4),
 ('Wietse', 4),
 ('Lobke', 5),
-('Maam', 6);
+('Maam', 6),
+('Test', 2);
 /* default bcrypt hash, password is admin, for developing purposes only*/
 INSERT INTO `users`(`last_name`, `first_name`, `country`, `city`, `email`, `password`, `authorisation`) values
     ('Peters', 'Victor', 'Netherlands', 'Groningen', 'admin@admin.com', '$2y$12$DznTtqjtDvfT6RvFfQdL7OmU1l4fsycMhVD38yG7eCO16v3jLzPKy', '1');

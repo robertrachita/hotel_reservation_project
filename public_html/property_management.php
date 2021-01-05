@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <html lang="en">
 
@@ -14,17 +17,24 @@
     <?php include 'php/header.php' ?>
     <div class="formulier">
         <?php
+        if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE ||  $_SESSION['authorisation'] !== 1) {
+            echo "Your account does not have the authorisation to view this page.";
+            header("refresh:1;url=index.php?");
+                            die();
+        }
         error_reporting(E_ERROR | E_PARSE);
         $mode = filter_input(INPUT_GET, 'mode');
+        $id = filter_input(INPUT_GET, 'id');
         $submit_new = $_POST['submit_new'];
         $submit_edit = $_POST['submit_edit'];
-        if (isset($submit_new) || isset($submit_edit)) {
-            $conn = new mysqli("localhost", "root", "");
+        if (isset($submit_new) && !empty($_FILES['headerimage'])) {
+            $config = parse_ini_file('../config.ini');
+            $conn = new mysqli($config['db_host'], $config['db_user'], $config['db_pass']);
             if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
+                die("Conection failed: " . $conn->connect_errno);
             }
-            mysqli_select_db($conn, 'hotel_system')
-                or die("Could not load database: " . $conn->connect_error);
+            $conn->select_db($config['db_name'])
+                or die("Could not load database: " . $conn->errno);
 
             $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
             $capacity = filter_input(INPUT_POST, 'capacity', FILTER_SANITIZE_NUMBER_FLOAT);
@@ -59,11 +69,52 @@
                 echo "Please fill in everything";
             }
         }
+        if (isset($submit_edit)) {
+            $config = parse_ini_file('../config.ini');
+            $conn = new mysqli($config['db_host'], $config['db_user'], $config['db_pass']);
+            if ($conn->connect_error) {
+                die("Conection failed: " . $conn->connect_errno);
+            }
+            $conn->select_db($config['db_name'])
+                or die("Could not load database: " . $conn->errno);
+
+            $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+            $capacity = filter_input(INPUT_POST, 'capacity', FILTER_SANITIZE_NUMBER_FLOAT);
+            $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
+            //delete this later
+            if (empty($description)) {
+                $description = ' ';
+            }
+            $price_night = filter_input(INPUT_POST, 'price_night', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_week = filter_input(INPUT_POST, 'price_week', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_weekend = filter_input(INPUT_POST, 'price_weekend', FILTER_SANITIZE_NUMBER_FLOAT);
+            $discount = filter_input(INPUT_POST, 'discount', FILTER_SANITIZE_NUMBER_FLOAT);
+
+            if (!empty($name) && !empty($capacity)) {
+                $id = $_SESSION['edit_id'];
+                unset($_SESSION['edit_id']);
+                $sql = "UPDATE `apartments` SET name = '" . $name . "' , capacity = " . $capacity . " , description = '" . $description . "' , price_night = " . $price_night . " , price_week = " . $price_week . " , price_weekend = " . $price_weekend . " , discount = " . $discount . " WHERE apartment_id = " . $id . " ;";
+                if ($stmt = $conn->prepare($sql)) {
+                    $stmt->execute()
+                        or die("could not send the data to the database: " . $conn->error);
+                    $stmt->close();
+                    $conn->close();
+                    echo "Success! You will be redirected shortly back to the admin panel";
+                    header("refresh:2;url=admin.php");
+                    die();
+                } else {
+                    echo "A problem has happened: " . $conn->error;
+                }
+            } else {
+                echo "Please fill in everything";
+            }
+        }
         if (isset($submit_new) && !empty($_FILES['headerimage'])) {
             $file_name = $_FILES['headerimage']['name'];
             $file_size = $_FILES['headerimage']['size'];
             $file_tmp = $_FILES['headerimage']['tmp_name'];
             $file_type = $_FILES['headerimage']['type'];
+            $success_header = 0;
 
             if ($file_type == 'image/jpeg' || $file_type == 'image/jpg' || $file_type == 'image/png' || $file_type == 'image/gif') {
                 if ($file_size > 5242880) {
@@ -79,15 +130,16 @@
                     move_uploaded_file($file_tmp, $file_path . $file_name);
                     echo "Header image successfully uploaded";
                     echo '<br>';
+                    $success_header = 1;
                 }
             }
             if (!empty(array_filter($_FILES['images']['name']))) {
                 $file_number = 0;
                 $success = 0;
                 foreach ($_FILES['images']['tmp_name'] as $key => $value) {
-                    $file_name = $_FILES['images']['name'][$key];;
-                    $file_size = $_FILES['images']['size'][$key];;
-                    $file_tmp = $_FILES['images']['tmp_name'][$key];;
+                    $file_name = $_FILES['images']['name'][$key];
+                    $file_size = $_FILES['images']['size'][$key];
+                    $file_tmp = $_FILES['images']['tmp_name'][$key];
                     $file_type = $_FILES['images']['type'][$key];
 
                     if ($file_type == 'image/jpeg' || $file_type == 'image/jpg' || $file_type == 'image/png' || $file_type == 'image/gif') {
@@ -98,6 +150,7 @@
                             $file_name = 'image_' . $file_number . "." . $ext;
                             move_uploaded_file($file_tmp, $file_path . $file_name);
                             $success = 1;
+                            $success_header = 0;
                             $file_number++;
                         }
                     } else {
@@ -113,6 +166,10 @@
                 }
             } else {
                 echo "File type not allowed";
+            }
+            if ($success_header == 1 && $success == 0) {
+                header("refresh:1;url=admin.php");
+                die();
             }
         }
         if ($mode == 'add') {
@@ -140,12 +197,14 @@
             </form>";
         } else if ($mode == 'edit') {
             $id = filter_input(INPUT_GET, 'id');
-            $conn = new mysqli("localhost", "root", "");
+            $_SESSION['edit_id'] = $id;
+            $config = parse_ini_file('../config.ini');
+            $conn = new mysqli($config['db_host'], $config['db_user'], $config['db_pass']);
             if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
+                die("Conection failed: " . $conn->connect_errno);
             }
-            mysqli_select_db($conn, 'hotel_system')
-                or die("Could not load database: " . $conn->connect_error);
+            $conn->select_db($config['db_name'])
+                or die("Could not load database: " . $conn->errno);
 
             $sql = "SELECT `name`, `capacity`, `description`, `price_night`, `price_week`, `price_weekend`, `discount` FROM `apartments` WHERE `apartment_id` = " . $id . ";";
             if ($stmt = $conn->prepare($sql)) {
@@ -158,7 +217,7 @@
             } else {
                 die("Could not prepare the statement" . $conn->error);
             }
-            echo "<form method='POST' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>
+            echo "<form method='POST' >
                 <p><label for='name'>Name</label></p>
                 <input type='text' name='name' id='name' value='" . $name . "' required>
                 <p><label for='capacity'>Capacity</label></p>

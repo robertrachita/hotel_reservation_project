@@ -14,6 +14,11 @@
     <?php include 'php/header.php' ?>
     <div class="edit_images">
         <?php
+        if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE ||  $_SESSION['authorisation'] !== 1) {
+            echo "Your account does not have the authorisation to view this page.";
+            header("refresh:1;url=index.php?");
+                            die();
+        }
         error_reporting(E_ERROR | E_PARSE);
         $id = filter_input(INPUT_GET, 'id');
         $delete = filter_input(INPUT_GET, 'delete');
@@ -23,13 +28,17 @@
         $submit = $_POST['submit'];
         if ($submit && !empty(array_filter($_FILES['images']['name']))) {
             
-            $file_number = $file_count;
+            $file_number = $file_count - 1;
             $success = 0;
-            $file_path = "images/apartments/".$id."/";
+            $file_path = "images/apartments/".$id ;
+            if (!file_exists($file_path)) {
+                mkdir($file_path, 0777, true);
+            }
+            $file_path .= '/';
             foreach ($_FILES['images']['tmp_name'] as $key => $value) {
-                $file_name = $_FILES['images']['name'][$key];;
-                $file_size = $_FILES['images']['size'][$key];;
-                $file_tmp = $_FILES['images']['tmp_name'][$key];;
+                $file_name = $_FILES['images']['name'][$key];
+                $file_size = $_FILES['images']['size'][$key];
+                $file_tmp = $_FILES['images']['tmp_name'][$key];
                 $file_type = $_FILES['images']['type'][$key];
 
                 if ($file_type == 'image/jpeg' || $file_type == 'image/jpg' || $file_type == 'image/png' || $file_type == 'image/gif') {
@@ -67,10 +76,10 @@
                         echo "<div class='edit_images_box'>
                 <img src='" . $path . $file . "' alt='error'>
                 <form method='POST' action='edit_images.php?header=" . $id . "&file=" . $file . "'>
-                <input type='submit' name='header'  value='Choose as Header' disabled>
+                <input type='submit' name='useless_button'  value='Current Header' disabled>
                 </form>
                 <form method='POST' action='edit_images.php?delete=" . $id . "&file=" . $file . "'>
-                <input type='submit' name='delete'  value='Delete Image'>
+                <button type='submit' class='redonhover' name='delete' >Delete Image</button>
                 </form>
                 </div>";
                     } else {
@@ -80,7 +89,7 @@
                 <input type='submit' name='header'  value='Choose as Header'>
                 </form>
                 <form method='POST' action='edit_images.php?delete=" . $id . "&file=" . $file . "'>
-                <input type='submit' name='delete'  value='Delete Image'>
+                <button type='submit' class='redonhover' name='delete' >Delete Image</button>
                 </form>
                 </div>";
                     }

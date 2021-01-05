@@ -14,20 +14,20 @@
         <h1>Articles</h1> <br><br><br>
         <div class="top">
             <div>
-                <a href=""><img src="images/covid.jpg"></a>
-                <a href=""><h3>Vaccine for Covid-19</h3></a> 
+                <a href=""><img src="images/travel.jpg">
+                <h3>Explore Netherlands</h3></a> 
             </div>
             <div>
                 <a href=""><img src="images/winter.jpg"></a>
                 <a href=""><h3>It's Getting Colder in Netherlands</h3></a>
             </div>
             <div>
-                <a href=""><img src="images/covid-19.jpg"></a>
-                <a href=""><h3>More Covid-19 News</h3></a>
+                <a href=""><img src="images/party.jpg"></a>
+                <a href=""><h3>Nightlife in Netherlands</h3></a>
             </div>
             <div>
-                <a href=""><img src="images/cyber.jpg"></a>
-                <a href=""><h3>Cybernatic Arms for Humans</h3></a>
+                <a href=""><img src="images/money.jpg"></a>
+                <a href=""><h3>Cost of Life in Netherlands</h3></a>
             </div> 
         </div><br><br><br><hr><br><br>
         <div class="bottom">
@@ -51,9 +51,9 @@
                 </div>
                 <br><br><hr><br>
                 <div class="news">
-                    <img src="images/money.jpg">
+                    <img src="images/cyber.jpg">
                     <div>
-                        <a href=""><h2>Cost of Life in Netherlands</h2>
+                        <a href=""><h2>Cybernatic Arms for Humans</h2>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, iure?</p>
                         </a>     
                     </div>
@@ -61,15 +61,15 @@
                 <br><br><hr><br>
             </div>
             <div class="right">
-                <h1>Hot News</h1>
+                <h1>Covid News</h1>
                 <div>
-                    <img src="images/travel.jpg">
-                    <h2>Explore Netherlands</h2>
+                    <a href="news1.php"><img src="images/covid.jpg">
+                    <h2>Vaccine for Covid-19</h2></a>
                 </div>
                 <br><br>
                 <div>
-                    <img src="images/party.jpg">
-                    <h2>Nightlife in Netherlands</h2>
+                    <a href=""><img src="images/covid-19.jpg">
+                    <h2>Covid-19 Cases in Netherlands</h2></a>
                 </div>
             </div>
         </div>

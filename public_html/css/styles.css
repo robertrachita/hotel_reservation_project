@@ -37,6 +37,11 @@ header {
     background-size: 50px 50px;
 }
 
+#buttonImageAccount {
+    background: url("../images/43931722-user-icon-account-button-on-dark-background.jpg") repeat 0 0;
+    background-size: 50px 50px;
+}
+
 .dropbtn:hover,
 .dropbtn:focus {
     background-color: #2980B9;
@@ -45,6 +50,12 @@ header {
 .dropdown {
     position: relative;
     display: inline-block;
+}
+
+.dropdownRight {
+    position: relative;
+    float: right;
+    right: 0;
 }
 
 .dropdown-content {
@@ -57,14 +68,28 @@ header {
     z-index: 1;
 }
 
-.dropdown-content a {
+.dropdown-content-right {
+    display: none;
+    float: right;
+    right: 0;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a,
+.dropdown-content-right a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
 
-.dropdown-content a:hover {
+.dropdown-content a:hover,
+.dropdown-content-right a.hover {
     background-color: #ddd;
 }
 
@@ -121,6 +146,7 @@ content {
 section {
     display: flex;
     background-color: inherit;
+    flex-wrap: wrap;
 }
 
 .imageBox {
@@ -134,6 +160,7 @@ section {
 }
 
 .information {
+    box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -141,6 +168,8 @@ section {
     justify-content: space-between;
     padding: 15px;
     width: 375px;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .button_info_right {
@@ -249,7 +278,7 @@ article .bottom .right {
 }
 
 .right h1 {
-    background-color: darkred;
+    background-color: gold;
     width: 250px;
     font-size: 28px;
     color: whitesmoke;
@@ -264,6 +293,80 @@ article .bottom .right {
     border-bottom: 1px solid darkred;
     box-shadow: 0 0 20px grey;
     text-align: center;
+}
+
+.right div a {
+    text-decoration: none;
+    color: black;
+}
+
+.right div a:hover {
+    cursor: pointer;
+    color: gold;
+}
+
+
+/* Article Content */
+
+.news_content h1 {
+    text-align: center;
+}
+
+.news_content img {
+    width: 40%;
+    display: block;
+    margin: auto;
+}
+
+.news_content .content_main {
+    display: grid;
+    grid-template-areas: "left right";
+    grid-template-columns: 2fr 1fr;
+}
+
+.news_content .content_main .cleft {
+    grid-area: left;
+}
+
+.news_content .content_main .cright {
+    grid-area: right;
+}
+
+.content_main .cleft p {
+    padding: 10px;
+    text-align: justify;
+    font-size: 18px;
+}
+
+.content_main .cleft h3 {
+    padding: 10px;
+}
+
+.content_main .cright {
+    padding: 30px;
+}
+
+.content_main .cright h1 {
+    background-color: gold;
+    width: 250px;
+    font-size: 28px;
+    color: whitesmoke;
+    text-align: center;
+    margin: auto;
+}
+
+.content_main .cright .right_news {
+    width: 90%;
+    height: 300px;
+    border: 0px solid white;
+    border-bottom: 1px solid darkred;
+    box-shadow: 0 0 20px grey;
+    text-align: center;
+}
+
+.content_main .cright .right_news img {
+    width: 100%;
+    height: 200px;
 }
 
 
@@ -353,6 +456,8 @@ footer {
 }
 
 input[type=text],
+input[type=email],
+input[type=password],
 select {
     padding: 8px 16px;
     margin: 8px 0;
@@ -371,6 +476,35 @@ input[type=reset] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+input.submit,
+#negativ .negative {
+    background-color: #f54545;
+    color: black;
+    padding: 7px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.negative:hover {
+    background-color: red;
+}
+
+.redonhover {
+    background-color: yellow;
+    color: black;
+    padding: 7px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.redonhover:hover {
+    background-color: #f54545;
 }
 
 input[type=submit]:hover {
@@ -412,4 +546,97 @@ textarea {
     height: 100px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+
+/* apartment details page*/
+
+#apartment-img {
+    width: 40%;
+    border-radius: 5%
+}
+
+.apartment-container {
+    margin-top: 50px;
+    position: relative;
+    width: 50%;
+}
+
+.mySlides {
+    display: none;
+}
+
+.apartment-container img {
+    vertical-align: middle;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 40%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+.caption-container {
+    text-align: center;
+    background-color: #222;
+    padding: 2px 16px;
+    color: white;
+}
+
+.row {
+    max-height: 100px;
+    overflow-y: scroll;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.column {
+    float: left;
+    width: 16.66%;
+    overflow: hidden;
+}
+
+.demo {
+    opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+    opacity: 1;
 }
