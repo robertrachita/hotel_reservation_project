@@ -4,7 +4,7 @@
         <div id="myDropdown" class="dropdown-content">
             <a href="admin.php">Admin DELETE THIS LATER</a>
             <a href="index.php">Home</a>
-            <a href="#">My account</a>
+            <a href="myaccount.php">My account</a>
             <a href="about.php">About</a>
             <a href="article.php">News</a>
             <a href="#contact">Contact</a>
@@ -14,6 +14,17 @@
         <a href="index.php"><img src="images/banner2.png" alt="banner" width="568.42x" height="120px"></a>
     </div>
     <div class="account">
-        <a href="#"><img id="headerImages" src="images/43931722-user-icon-account-button-on-dark-background.jpg" alt="account" width="50px" height="50px"></a>
+       <button onclick="toggleMenuRight()" class="dropbtn" id="buttonImageAccount"> </button>
+        <div id="dropdownRight" class="dropdown-content-right">
+         <?php
+            session_start();
+            if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === TRUE) {
+                echo "<a href='user.php?mode=logout'>Log Out</a>";
+            } else {
+                echo "<a href='user.php'>Login</a>";
+            }
+            ?>
+            <a href="register.php">Register</a>
+        </div>
     </div>
 </header>

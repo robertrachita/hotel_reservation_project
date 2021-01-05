@@ -13,10 +13,15 @@
 <body>
     <?php include 'php/header.php' ?>
     <div>
-        <form action="property_management.php?mode=add" method="POST">
-            <input type='submit' value="Add new Apartment">
-        </form>
-        <?php
+        <?php 
+        if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE ||  $_SESSION['authorisation'] !== 1) {
+            echo "Your account does not have the authorisation to view this page.";
+            header("refresh:1;url=index.php?");
+                            die();
+        }
+        echo "<form action='property_management.php?mode=add' method='POST'>
+            <input type='submit' value='Add new Apartment'>
+        </form>";
         $config = parse_ini_file('../config.ini');
         $conn = new mysqli($config['db_host'], $config['db_user'], $config['db_pass']);
         if ($conn->connect_error) {

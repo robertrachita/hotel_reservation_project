@@ -14,6 +14,11 @@
     <?php include 'php/header.php' ?>
     <div class="edit_images">
         <?php
+        if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE ||  $_SESSION['authorisation'] !== 1) {
+            echo "Your account does not have the authorisation to view this page.";
+            header("refresh:1;url=index.php?");
+                            die();
+        }
         error_reporting(E_ERROR | E_PARSE);
         $id = filter_input(INPUT_GET, 'id');
         $delete = filter_input(INPUT_GET, 'delete');

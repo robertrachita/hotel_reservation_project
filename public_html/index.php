@@ -81,6 +81,8 @@
                 $counter--;
                 }
             }
+            $stmt->close();
+            $conn->close();
         } else {
             die("There are no apartments available at this time. Check back later or contact the administrator.");
         }

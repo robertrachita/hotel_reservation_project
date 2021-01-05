@@ -14,20 +14,30 @@ function toggleMenu() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
 
+function toggleMenuRight() {
+    document.getElementById("dropdownRight").classList.toggle("show");
+}
+
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
-        if (!event.target.matches('.dropbtn')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            var i;
-            for (i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                }
+    if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var dropdownright = document.getElementsByClassName("dropdown-content-right");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            var openDropdownRight = dropdownright[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+            if (openDropdownRight.classList.contains('show')) {
+                openDropdownRight.classList.remove('show');
             }
         }
     }
-    /* Slideshow functions*/
+}
+
+/* Slideshow functions*/
 var slideIndex = 1;
 showSlides(slideIndex);
 

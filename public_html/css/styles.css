@@ -37,6 +37,11 @@ header {
     background-size: 50px 50px;
 }
 
+#buttonImageAccount {
+    background: url("../images/43931722-user-icon-account-button-on-dark-background.jpg") repeat 0 0;
+    background-size: 50px 50px;
+}
+
 .dropbtn:hover,
 .dropbtn:focus {
     background-color: #2980B9;
@@ -45,6 +50,12 @@ header {
 .dropdown {
     position: relative;
     display: inline-block;
+}
+
+.dropdownRight {
+    position: relative;
+    float: right;
+    right: 0;
 }
 
 .dropdown-content {
@@ -57,14 +68,28 @@ header {
     z-index: 1;
 }
 
-.dropdown-content a {
+.dropdown-content-right {
+    display: none;
+    float: right;
+    right: 0;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a,
+.dropdown-content-right a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
 
-.dropdown-content a:hover {
+.dropdown-content a:hover,
+.dropdown-content-right a.hover {
     background-color: #ddd;
 }
 
@@ -431,6 +456,8 @@ footer {
 }
 
 input[type=text],
+input[type=email],
+input[type=password],
 select {
     padding: 8px 16px;
     margin: 8px 0;
@@ -451,7 +478,8 @@ input[type=reset] {
     cursor: pointer;
 }
 
-.negative {
+input.submit,
+#negativ .negative {
     background-color: #f54545;
     color: black;
     padding: 7px 20px;

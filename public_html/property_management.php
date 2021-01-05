@@ -17,12 +17,17 @@ session_start();
     <?php include 'php/header.php' ?>
     <div class="formulier">
         <?php
+        if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE ||  $_SESSION['authorisation'] !== 1) {
+            echo "Your account does not have the authorisation to view this page.";
+            header("refresh:1;url=index.php?");
+                            die();
+        }
         error_reporting(E_ERROR | E_PARSE);
         $mode = filter_input(INPUT_GET, 'mode');
         $id = filter_input(INPUT_GET, 'id');
         $submit_new = $_POST['submit_new'];
         $submit_edit = $_POST['submit_edit'];
-        if (isset($submit_new)) {
+        if (isset($submit_new) && !empty($_FILES['headerimage'])) {
             $config = parse_ini_file('../config.ini');
             $conn = new mysqli($config['db_host'], $config['db_user'], $config['db_pass']);
             if ($conn->connect_error) {
@@ -76,6 +81,7 @@ session_start();
             $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
             $capacity = filter_input(INPUT_POST, 'capacity', FILTER_SANITIZE_NUMBER_FLOAT);
             $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
+            //delete this later
             if (empty($description)) {
                 $description = ' ';
             }
