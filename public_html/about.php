@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
     <title>About Us</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src='js/script.js'></script>
   </head>
   <body>
       <?php include 'php/header.php' ?>

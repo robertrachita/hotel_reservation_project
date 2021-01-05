@@ -3,26 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <title>News</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src='js/script.js'></script>
 </head>
 <body>
-    <header>
-        <div class="menu">
-            <a href="#" id="navbar"><img id="headerImages" src="../images/Hamburger_icon.jpg" alt="menu_item" width="50px" height="50px"></a>
-        </div>
-        <div class="banner">
-            <img src="../images/banner2.png" alt="banner" width="568.42x" height="120px">
-        </div>
-        <div class="account">
-            <a href="#"><img id="headerImages" src="../images/43931722-user-icon-account-button-on-dark-background.jpg" alt="account" width="50px" height="50px"></a>
-        </div>
-    </header>
+    <?php include 'php/header.php' ?>
     <div class="news_content">
         <h1>Vaccine for Covid-19</h1>
         <div class="content_main">
             <div class="cleft">
-                <img src="../images/covid.jpg">
+                <img src="images/covid.jpg">
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptas aliquid ex soluta similique, debitis sint quidem tempore itaque sequi. Odit repudiandae pariatur hic praesentium perferendis porro sed voluptatibus accusamus at molestias rerum sequi, itaque vitae excepturi ipsam optio repellat exercitationem! Facilis odio eum ullam aperiam error debitis consequatur, quis ipsum.</p>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius id deleniti repellat nihil magni suscipit qui, quis sunt cum possimus rerum consequuntur libero porro eveniet neque mollitia molestiae reiciendis. Aspernatur aliquid eligendi harum quaerat quis cumque corporis. Ad, quasi labore? Porro alias ullam quod fugit quo pariatur quibusdam, sunt consectetur!</p>
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores, fuga alias voluptates fugit earum adipisci nisi consequuntur rem commodi eaque.</p>
@@ -32,24 +24,19 @@
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis, deserunt magni modi deleniti, dolores est commodi quod in ab animi inventore sint facere nihil obcaecati facilis, tenetur asperiores corporis eos excepturi voluptatem labore iure nam. Perferendis animi officiis fugit sequi eligendi similique magnam dolores exercitationem quo ea. Minus totam voluptatum ipsam, modi maiores dicta explicabo dolorum, quaerat veritatis ut earum!</p>
             </div>
             <div class="cright">
-                <h1>Hot News</h1>
+                <h1>Covid News</h1>
                 <div class="right_news">
-                    <img src="../images/travel.jpg">
-                    <h2>Explore Netherlands</h2>
+                    <img src="images/covid.jpg">
+                    <h2>Vaccine for Covid-19</h2>
                 </div>
                 <br><br>
                 <div class="right_news">
-                    <img src="../images/party.jpg">
-                    <h2>Nightlife in Netherlands</h2>
+                    <img src="images/covid-19.jpg">
+                    <h2>Covid-19 Cases in Netherlands</h2>
                 </div>
             </div>
         </div>
     </div>
-    <footer>
-        <a href="#" target="_BLANK" rel="noopener noreferrer"><img src="../images/footer/facebook.png" alt="facebook" width="50px" height="50px"></a>
-        <a href="#" target="_BLANK" rel="noopener noreferrer"><img src="../images/footer/twitter.png" alt="facebook" width="50px" height="50px"></a>
-        <a href="#" target="_BLANK" rel="noopener noreferrer"><img src="../images/footer/insta.png" alt="facebook" width="50px" height="50px"></a>
-        <a href="#" target="_BLANK" rel="noopener noreferrer"><img src="../images/footer/linkedin.png" alt="facebook" width="50px" height="50px"></a>
-    </footer>
+    <?php include 'php/footer.php' ?>
 </body>
 </html>
