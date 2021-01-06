@@ -640,3 +640,37 @@ textarea {
 .demo:hover {
     opacity: 1;
 }
+
+.reservation_bar {
+    display: flex;
+    justify-content: space-around;
+    background-color: whitesmoke;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.unchecked h2 {
+    color: #909090;
+}
+
+.reservation_apartments {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+}
+
+.reservation_apartments_box {
+    border-radius: 5%;
+    border: 1px solid gray;
+    padding: 1%;
+    text-align: left;
+    margin: 25px;
+}
+
+.reservation_apartments_box p {
+    margin: 15px;
+    margin-left: 0px;
+}

@@ -27,6 +27,8 @@
             unset($_SESSION['loggedin']);
             unset($_SESSION['email']);
             unset($_SESSION['authorisation']);
+            unset($_COOKIE['user_id']);
+            setcookie('user_id', null, time() - 3600, '/');
             echo "Logged Out Successfully!";
             header("refresh:1;url=index.php?");
             die();
@@ -35,11 +37,11 @@
             $password = filter_input(INPUT_POST, 'password');
 
             if (!empty($username) && !empty($password)) {
-                $sql = "SELECT `email`, `password`, `authorisation` FROM `users` WHERE email='" . $username . "' ;";
+                $sql = "SELECT `user_id` ,`email`, `password`, `authorisation` FROM `users` WHERE email='" . $username . "' ;";
                 if ($stmt = $conn->prepare($sql)) {
                     $stmt->execute()
                         or die("could not send the data to the database: " . $conn->error);
-                    $stmt->bind_result($retrievedData['email'], $retrievedData['password'], $retrievedData['authorisation']);
+                    $stmt->bind_result($retrievedData['user_id'], $retrievedData['email'], $retrievedData['password'], $retrievedData['authorisation']);
                     $stmt->store_result();
                     $stmt->fetch()
                         or die("Could not retrieve data Or the user does not exists");
@@ -49,6 +51,7 @@
                             $_SESSION['loggedin'] = TRUE;
                             $_SESSION['email'] = $retrievedData['email'];
                             $_SESSION['authorisation'] = $retrievedData['authorisation'];
+                            setcookie("user_id", $retrievedData['user_id'], strtotime('+7 days'));
                             header("refresh:1;url=myaccount.php?");
                             die();
                         } else {

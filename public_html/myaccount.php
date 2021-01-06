@@ -20,6 +20,8 @@
                             die();
         }
         echo "   hello there, ".$_SESSION['email'];
+        echo "<br>";
+        echo $_COOKIE['user_id'];
         /*features to do
             *-view account details/edit details
             *-change password

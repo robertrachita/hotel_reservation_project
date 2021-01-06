@@ -14,9 +14,9 @@
 <body>
     <?php include 'php/header.php' ?>
     <div class="searchbox">
-        <form action="" method="POST">
-            <input name="entryDate" type="date" placeholder="Arrival">
-            <input name="entryDate" type="date" placeholder="Departure">
+        <form action="reservation_apartment.php" method="POST">
+            <input type="date" placeholder="Arrival" name='arrival'>
+            <input type="date" placeholder="Departure" name='departure'>
             <input name="submit" type="submit" value=' '>
         </form>
     </div>

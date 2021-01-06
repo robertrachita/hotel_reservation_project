@@ -126,7 +126,7 @@
             rename($path, "images/apartments/" . $header . "/header_image." . $ext);
             rename("images/apartments/" . $header . "/tmp." . $ext_old, "images/apartments/" . $header . "/" . $fileToChange . $ext_old,);
             echo "Changes were successful! You will be redirected shortly back to the previous panel";
-            header("refresh:1;url=edit_images.php?id=" . $header . "");
+            header("refresh:1;url=image_redirect.php?id=" . $header . "");
             die();
         }
         ?>
