@@ -17,7 +17,7 @@
         <form action="" method="POST">
             <input name="entryDate" type="date" placeholder="Arrival">
             <input name="entryDate" type="date" placeholder="Departure">
-            <input name="submit" type="submit" value=" ">
+            <input name="submit" type="submit" value=' '>
         </form>
     </div>
     <content>

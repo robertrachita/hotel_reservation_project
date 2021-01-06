@@ -21,8 +21,8 @@
         }
         echo "   hello there, ".$_SESSION['email'];
         /*features to do
-            *-view details/edit details
-            *-change pass
+            *-view account details/edit details
+            *-change password
             *-view past/current reservations
             */
         ?>
