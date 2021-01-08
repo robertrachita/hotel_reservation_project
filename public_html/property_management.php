@@ -39,13 +39,18 @@ session_start();
             $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
             $capacity = filter_input(INPUT_POST, 'capacity', FILTER_SANITIZE_NUMBER_FLOAT);
             $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
-            $price_night = filter_input(INPUT_POST, 'price_night', FILTER_SANITIZE_NUMBER_FLOAT);
-            $price_week = filter_input(INPUT_POST, 'price_week', FILTER_SANITIZE_NUMBER_FLOAT);
-            $price_weekend = filter_input(INPUT_POST, 'price_weekend', FILTER_SANITIZE_NUMBER_FLOAT);
-            $discount = filter_input(INPUT_POST, 'discount', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_night_regular = filter_input(INPUT_POST, 'price_night_regular', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_week_regular = filter_input(INPUT_POST, 'price_week_regular', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_weekend_regular = filter_input(INPUT_POST, 'price_weekend_regular', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_night_season = filter_input(INPUT_POST, 'price_night_season', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_week_season = filter_input(INPUT_POST, 'price_week_season', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_weekend_season = filter_input(INPUT_POST, 'price_weekend_season', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_night_vacation = filter_input(INPUT_POST, 'price_night_vacation', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_week_vacation = filter_input(INPUT_POST, 'price_week_vacation', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_weekend_vacation = filter_input(INPUT_POST, 'price_weekend_vacation', FILTER_SANITIZE_NUMBER_FLOAT);
 
             if (!empty($name) && !empty($capacity)) {
-                $sql = "INSERT INTO `apartments` (`name`, `capacity`, `description`, `price_night`, `price_week`, `price_weekend`, `discount`) VALUES (?, ?, ?, ?, ?, ?, ?) ;";
+                $sql = "INSERT INTO `apartments` (`name`, `capacity`, `description`, `price_night_regular`, `price_week_regular`, `price_weekend_regular`, `price_night_season`, `price_week_season`, `price_weekend_season` , `price_night_vacation`, `price_week_vacation`, `price_weekend_vacation`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ;";
                 if ($stmt = $conn->prepare($sql)) {
                     $stmt->bind_param("sdsdddd", $name, $capacity, $description, $price_night, $price_week, $price_weekend, $discount);
                     $stmt->execute()
@@ -85,15 +90,20 @@ session_start();
             if (empty($description)) {
                 $description = ' ';
             }
-            $price_night = filter_input(INPUT_POST, 'price_night', FILTER_SANITIZE_NUMBER_FLOAT);
-            $price_week = filter_input(INPUT_POST, 'price_week', FILTER_SANITIZE_NUMBER_FLOAT);
-            $price_weekend = filter_input(INPUT_POST, 'price_weekend', FILTER_SANITIZE_NUMBER_FLOAT);
-            $discount = filter_input(INPUT_POST, 'discount', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_night_regular = filter_input(INPUT_POST, 'price_night_regular', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_week_regular = filter_input(INPUT_POST, 'price_week_regular', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_weekend_regular = filter_input(INPUT_POST, 'price_weekend_regular', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_night_season = filter_input(INPUT_POST, 'price_night_season', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_week_season = filter_input(INPUT_POST, 'price_week_season', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_weekend_season = filter_input(INPUT_POST, 'price_weekend_season', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_night_vacation = filter_input(INPUT_POST, 'price_night_vacation', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_week_vacation = filter_input(INPUT_POST, 'price_week_vacation', FILTER_SANITIZE_NUMBER_FLOAT);
+            $price_weekend_vacation = filter_input(INPUT_POST, 'price_weekend_vacation', FILTER_SANITIZE_NUMBER_FLOAT);
 
             if (!empty($name) && !empty($capacity)) {
                 $id = $_SESSION['edit_id'];
                 unset($_SESSION['edit_id']);
-                $sql = "UPDATE `apartments` SET name = '" . $name . "' , capacity = " . $capacity . " , description = '" . $description . "' , price_night = " . $price_night . " , price_week = " . $price_week . " , price_weekend = " . $price_weekend . " , discount = " . $discount . " WHERE apartment_id = " . $id . " ;";
+                $sql = "UPDATE `apartments` SET name = '" . $name . "' , capacity = " . $capacity . " , description = '" . $description . "' , price_night_regular = " . $price_night_regular . " , price_week_regular = " . $price_week_regular . " , price_weekend_regular = " . $price_weekend_regular . " , price_night_season = " . $price_night_season . " , price_week_season = " . $price_week_season . " , price_weekend_season = " . $price_weekend_season . " , price_night_vacation = " . $price_night_vacation . " , price_week_vacation = " . $price_week_vacation . " , price_weekend_vacation = " . $price_weekend_vacation . "  WHERE apartment_id = " . $id . " ;";
                 if ($stmt = $conn->prepare($sql)) {
                     $stmt->execute()
                         or die("could not send the data to the database: " . $conn->error);
@@ -180,14 +190,28 @@ session_start();
                 <input type='text' name='capacity' id='capacity' required>
                 <p><label for='description'>Description</label></p>
                 <textarea id='description' name='description'></textarea>
-                <p><label for='price_night'>Price per night</label></p>
-                <input type='text' name='price_night' id='price_night'>
-                <p><label for='price_week'>Price per week</label></p>
-                <input type='text' name='price_week' id='price_week'>
-                <p><label for='price_weekend'>Price per weekend</label></p>
-                <input type='text' name='price_weekend' id='price_weekend'>
-                <p><label for='discount'>Discount</label></p>
-                <input type='text' name='discount' id='discount'>
+
+                <p><label for='price_night_regular'>Price per night Regular</label></p>
+                <input type='text' name='price_night_regular' id='price_night_regular'>
+                <p><label for='price_week_regular'>Price per week Regular</label></p>
+                <input type='text' name='price_week_regular' id='price_week_regular'>
+                <p><label for='price_weekend_regular'>Price per weekend Regular</label></p>
+                <input type='text' name='price_weekend_regular' id='price_weekend_regular'>
+
+                <p><label for='price_night_season'>Price per night Season</label></p>
+                <input type='text' name='price_night_season' id='pricprice_night_seasone_night'>
+                <p><label for='price_week_season'>Price per week Season</label></p>
+                <input type='text' name='price_week_season' id='price_week_season'>
+                <p><label for='price_weekend_season'>Price per weekend Season</label></p>
+                <input type='text' name='price_weekend_season' id='price_weekend_season'>
+
+                <p><label for='price_night_vacation'>Price per night Vacation</label></p>
+                <input type='text' name='price_night_vacation' id='price_night_vacation'>
+                <p><label for='price_week_vacation'>Price per week Vacation</label></p>
+                <input type='text' name='price_week_vacation' id='price_week_vacation'>
+                <p><label for='price_weekend_vacation'>Price per weekend Vacation</label></p>
+                <input type='text' name='price_weekend_vacation' id='price_weekend_vacation'>
+
                 <p><label for='main_image'>Header Image</label></p>
                 <input type='file' name='headerimage' id='main_image'>
                 <p><label for='images'>Other Images</label></p>
@@ -224,14 +248,28 @@ session_start();
                 <input type='text' name='capacity' id='capacity' value='" . $capacity . "' required>
                 <p><label for='description'>Description</label></p>
                 <textarea id='description' name='description' >" . $description . "</textarea>
-                <p><label for='price_night'>Price per night</label></p>
-                <input type='text' name='price_night' id='price_night' value='" . $price_night . "'>
-                <p><label for='price_week'>Price per week</label></p>
-                <input type='text' name='price_week' id='price_week' value='" . $price_week . "'>
-                <p><label for='price_weekend'>Price per weekend</label></p>
-                <input type='text' name='price_weekend' id='price_weekend' value='" . $price_weekend . "'>
-                <p><label for='discount'>Discount</label></p>
-                <input type='text' name='discount' id='discount' value='" . $discount . "'><br>
+
+                <p><label for='price_night_regular'>Price per night Regular</label></p>
+                <input type='text' name='price_night_regular' id='price_night_regular' value='" . $price_night_regular . "'>
+                <p><label for='price_week_regular'>Price per week Regular</label></p>
+                <input type='text' name='price_week_regular' id='price_week_regular' value='" . $price_week_regular . "'>
+                <p><label for='price_weekend_regular'>Price per weekend Regular</label></p>
+                <input type='text' name='price_weekend_regular' id='price_weekend_regular' value='" . $price_weekend_regular. "'>
+
+                <p><label for='price_night_season'>Price per night Season</label></p>
+                <input type='text' name='price_night_season' id='price_night_season' value='" . $price_night_season . "'>
+                <p><label for='price_week_season'>Price per week Season</label></p>
+                <input type='text' name='price_week_season' id='price_week_season' value='" . $price_week_season . "'>
+                <p><label for='price_weekend_season'>Price per weekend Season</label></p>
+                <input type='text' name='price_weekend_season' id='price_weekend_season' value='" . $price_weekend_season . "'>
+
+                <p><label for='price_night_vacation'>Price per night Vacation</label></p>
+                <input type='text' name='price_night_vacation' id='price_night_vacation' value='" . $price_night_vacation . "'>
+                <p><label for='price_week_vacation'>Price per week Vacation</label></p>
+                <input type='text' name='price_week_vacation' id='price_week_vacation' value='" . $price_week_vacation . "'>
+                <p><label for='price_weekend_vacation'>Price per weekend Vacation</label></p>
+                <input type='text' name='price_weekend_vacation' id='price_weekend_vacation' value='" . $price_weekend_vacation . "'><br>
+
                 <input type='submit' name='submit_edit'  value='Submit Changes'>
                 <input type='reset' name='reset'>
             </form>";

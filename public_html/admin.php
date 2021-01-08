@@ -14,6 +14,9 @@
     <?php include 'php/header.php' ?>
     <div>
         <?php 
+        //TODO
+        //view user list
+        //change user authorisation level
         if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE ||  $_SESSION['authorisation'] !== 1) {
             echo "Your account does not have the authorisation to view this page.";
             header("refresh:1;url=index.php?");
