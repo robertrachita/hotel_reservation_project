@@ -20,6 +20,7 @@
             die();
         }
         $submit = filter_input(INPUT_POST, 'submit');
+        $mode = filter_input(INPUT_GET, 'mode');
         if (isset($submit)) {
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
             $password = filter_input(INPUT_POST, 'password');
@@ -33,6 +34,14 @@
             $last_name = filter_input(INPUT_POST, 'last_name', FILTER_SANITIZE_STRING);
             $first_name = filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_STRING);
             $date_of_birth = filter_input(INPUT_POST, 'date_of_birth');
+            $interval = date_diff(date_create($date_of_birth), date_create(date("Y-m-d")));
+            $check = $interval->format('%y');
+            $check = (int)$check;
+            if ($check <= 18){
+                echo "You must be at least 18 years old or older!";
+                header("refresh:3;url=register.php?");
+                die();
+            }
             $country = filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING);
             $city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING);
             $street = filter_input(INPUT_POST, 'street', FILTER_SANITIZE_STRING);
@@ -40,7 +49,7 @@
             $house_number = filter_input(INPUT_POST, 'house_number', FILTER_SANITIZE_NUMBER_INT);
             $telephone_number = filter_input(INPUT_POST, 'telephone_number', FILTER_SANITIZE_SPECIAL_CHARS);
             $password = password_hash($password, PASSWORD_DEFAULT);
-
+        
             if (!empty($email) && !empty($password) && !empty($last_name) && !empty($first_name) && !empty($date_of_birth) && !empty($country) && !empty($postal_code) && !empty($telephone_number)) {
                 if (empty($city))
                 {
@@ -71,9 +80,28 @@
                     $_SESSION['email'] = $email;
                     $_SESSION['authorisation'] = 0; 
                     $stmt->close();
+                    $sql = "SELECT `user_id` FROM `users` where email = '".$email."' ;";
+                    if ($stmt = $conn->prepare($sql)){
+                        $stmt->execute()
+                            or die ("Could not execute query: ".$conn->error);
+                        $stmt->bind_result($user_id);
+                        $stmt->store_result();
+                        $stmt->fetch();
+                    }
+                    else {
+                        die ("could not prepare statemtent: ".$conn->error);
+                    }
+                    $_SESSION['user_id'] = $user_id;
+                    $stmt->close();
                     $conn->close();
-                    header("refresh:1;url=myaccount.php?");
+                    if ($mode == 'redirect'){
+                        header("refresh:1;url=registration_confirmation.php");
                             die();
+                    }
+                    else {
+                    header("refresh:1;url=myaccount.php");
+                            die();
+                    }
                 }
                 else {
                     die ("An error has occured: ".$conn->error);
