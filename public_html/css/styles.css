@@ -374,10 +374,11 @@ article .bottom .right {
     width: 280px;
     height: 100%;
     margin: auto;
-    /*position: absolute;*/
+
+    position: absolute;
     top: 50%;
     left: 50%;
-    /*transform: translate(-50%, -50%);*/
+    transform: translate(-50%, -50%);
 }
 
 .c_box .c_textbox img {
@@ -459,9 +460,7 @@ article .bottom .right {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-right: 200px;
 }
-
 
 .c_box .c_gallery li {
     list-style: none;
