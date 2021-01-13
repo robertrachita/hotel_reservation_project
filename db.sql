@@ -6,10 +6,15 @@ CREATE TABLE IF NOT EXISTS `apartments` (
     `name`              VARCHAR(50) NOT NULL,
     `description`       VARCHAR(500),
     `capacity`          TINYINT NOT NULL,
-    `price_night`       DECIMAL(8,2) NOT NULL,
-    `price_week`        DECIMAL(8,2) NOT NULL,
-    `price_weekend`     DECIMAL(8,2) NOT NULL,
-    `discount`          TINYINT NOT NULL,
+    `price_night_regular`       DECIMAL(8,2) NOT NULL,
+    `price_week_regular`        DECIMAL(8,2) NOT NULL,
+    `price_weekend_regular`     DECIMAL(8,2) NOT NULL,
+    `price_night_season`        DECIMAL(8,2) NOT NULL,
+    `price_week_season`         DECIMAL(8,2) NOT NULL,
+    `price_weekend_season`      DECIMAL(8,2) NOT NULL,
+    `price_night_vacation`      DECIMAL(8,2) NOT NULL,
+    `price_week_vacation`       DECIMAL(8,2) NOT NULL,
+    `price_weekend_vacation`    DECIMAL(8,2) NOT NULL,
 
     CONSTRAINT PK_apartment_id PRIMARY KEY (apartment_id)
 
@@ -37,6 +42,7 @@ CREATE TABLE IF NOT EXISTS `users`(
 
 CREATE TABLE IF NOT EXISTS `orders`(
     `order_id`          INT UNIQUE NOT NULL AUTO_INCREMENT,
+    `date_created`      DATE NOT NULL,
     `date_start`        DATE NOT NULL,
     `date_end`          DATE NOT NULL,
     `status`            ENUM('PENDING', 'ACCEPTED', 'DECLINED') NOT NULL DEFAULT 'PENDING',
@@ -71,15 +77,15 @@ CREATE TABLE IF NOT EXISTS `contact` (
                                 ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /* Appartment information*/
-INSERT INTO `apartments`(`name`,`capacity`) values 
-('Iemke', 2),
-('Jaakje', 2),
-('Sil', 3),
-('Jelle', 4),
-('Wietse', 4),
-('Lobke', 5),
-('Maam', 6),
-('Test', 2);
+INSERT INTO `apartments`(`name`, `description`, `capacity`, `price_night_regular`, `price_week_regular`, `price_weekend_regular`, `price_night_season`, `price_week_season`, `price_weekend_season`,`price_night_vacation`, `price_week_vacation`, `price_weekend_vacation`) values 
+('Iemke', 'this', 2, 50, 350, 100, 55, 375, 125, 70, 450, 150),
+('Jaakje', 'is', 2, 50, 350, 100, 55, 375, 125, 70, 450, 150),
+('Sil', 'a', 3, 60, 395, 112.5, 62, 425, 125, 72, 495, 150),
+('Jelle','valid', 4, 65, 450, 137.5, 70, 475, 162.5, 80, 550, 175),
+('Wietse','description', 4, 65, 450, 137.5, 70, 475, 162.5, 80, 550, 175),
+('Lobke', 'for', 5, 70, 475, 162.5, 75, 500, 187.5, 85, 585, 200),
+('Maam', 'these', 6, 70, 475, 162.5, 75, 525, 187.5, 85, 585, 200),
+('Test', 'apartments', 2, 10, 90, 15, 10, 90, 15, 10, 90, 15);
 /* default bcrypt hash, password is admin, for developing purposes only*/
 INSERT INTO `users`(`last_name`, `first_name`, `country`, `city`, `email`, `password`, `authorisation`) values
     ('Peters', 'Victor', 'Netherlands', 'Groningen', 'admin@admin.com', '$2y$12$DznTtqjtDvfT6RvFfQdL7OmU1l4fsycMhVD38yG7eCO16v3jLzPKy', '1');
