@@ -7,7 +7,6 @@
     <meta charset="utf-8">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src='js/script.js'></script>
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
 </head>
 
 <body>
@@ -15,12 +14,25 @@
     <div class='formulier'>
         <?php
         $mode = filter_input(INPUT_GET, 'mode');
-        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === TRUE) {
-            //echo "You are already logged in";
-            //header("refresh:1;url=myaccount.php?");
-            //die();
+        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == TRUE && empty($mode)) {
+            echo "You are already logged in";
+            header("refresh:1;url=myaccount.php?");
+            die();
         }
         $submit = filter_input(INPUT_POST, 'submit');
+
+        if (isset($submit)) {
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+            $password = filter_input(INPUT_POST, 'password');
+            $re_password = filter_input(INPUT_POST, 're_password');
+            if ($password !== $re_password)
+            {
+                echo "Passwords do not match!";
+                header("refresh:3;url=register.php?");
+                die();
+            }
+        }
+
         if ($mode == 'editinfo') {
             
             $config = parse_ini_file('../config.ini');
@@ -42,22 +54,22 @@
                     
                     echo "<form action = 'update_info.php' method='POST' >
                     <p><label for='email'>Email*</label></p>
-                    <input type='email' id='email' name='email' value=" . $retrievedData['email'] . " required>
+                    <input type='email' id='email' name='email' value='" . $retrievedData['email'] . "' required>
                     <p><label for='last_name'>Last Name*</label></p>
-                    <input type='text' id='text' name='last_name' value=" . $retrievedData['last_name'] . " required>
+                    <input type='text' id='text' name='last_name' value='" . $retrievedData['last_name'] . "' required>
                     <p><label for='first_name'>First Name*</label></p>
-                    <input type='text' id='text' name='first_name' value=" . $retrievedData['first_name'] . " required><p><label for='country'>Country*</label></p>
-                    <input type='text' id='country' name='country' value=" . $retrievedData['country'] . " required>
+                    <input type='text' id='text' name='first_name' value='" . $retrievedData['first_name'] . "' required><p><label for='country'>Country*</label></p>
+                    <input type='text' id='country' name='country' value='" . $retrievedData['country'] . "' required>
                     <p><label for='city'>City</label></p>
-                    <input type='text' id='city' name='city' value=" . $retrievedData['city'] . ">
+                    <input type='text' id='city' name='city' value='" . $retrievedData['city'] . "'>
                     <p><label for='street'>Street</label></p>
-                    <input type='text' id='street' name='street' value=" . $retrievedData['street'] . ">
+                    <input type='text' id='street' name='street' value='" . $retrievedData['street'] . "'>
                     <p><label for='postal_code'>Postal Code*</label></p>
-                    <input type='text' id='postal_code' name='postal_code' value=" . $retrievedData['postal_code'] . " required>
+                    <input type='text' id='postal_code' name='postal_code' value='" . $retrievedData['postal_code'] . "' required>
                     <p><label for='house_number'>House number</label></p>
-                    <input type='text' id='house_number' name='house_number' value=" . $retrievedData['house_number'] . ">
+                    <input type='text' id='house_number' name='house_number' value='" . $retrievedData['house_number'] . "'>
                     <p><label for='telephone_number'>Telephone number*</label></p>
-                    <input type='text' id='telephone_number' name='telephone_number' value=" . $retrievedData['telephone_number'] . " required><br>
+                    <input type='text' id='telephone_number' name='telephone_number' value='" . $retrievedData['telephone_number'] . "' required><br>
                     <input type='submit' name='update' value='Update'>
                     <input type='reset' name='reset' value='Reset'>    
                     </form>";
@@ -76,7 +88,7 @@
             <p><label for='newpassword'>New Password*</label></p>
             <input type='password' id='newpassword' name='newpassword' required>
             <p><label for='re_password'>Retype New Password*</label></p>
-            <input type='password' id='re_password' name='re_password' required>
+            <input type='password' id='re_password' name='re_password' required><br>
             <input type='submit' name='update' value='Update'>
             <input type='reset' name='reset' value='Reset'>    
             </form>";    
@@ -87,6 +99,14 @@
             $last_name = filter_input(INPUT_POST, 'last_name', FILTER_SANITIZE_STRING);
             $first_name = filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_STRING);
             $date_of_birth = filter_input(INPUT_POST, 'date_of_birth');
+            $interval = date_diff(date_create($date_of_birth), date_create(date("Y-m-d")));
+            $check = $interval->format('%y');
+            $check = (int)$check;
+            if ($check <= 18){
+                echo "You must be at least 18 years old or older!";
+                header("refresh:3;url=register.php?");
+                die();
+            }
             $country = filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING);
             $city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING);
             $street = filter_input(INPUT_POST, 'street', FILTER_SANITIZE_STRING);
@@ -125,9 +145,28 @@
                     $_SESSION['email'] = $email;
                     $_SESSION['authorisation'] = 0; 
                     $stmt->close();
+                    $sql = "SELECT `user_id` FROM `users` where email = '".$email."' ;";
+                    if ($stmt = $conn->prepare($sql)){
+                        $stmt->execute()
+                            or die ("Could not execute query: ".$conn->error);
+                        $stmt->bind_result($user_id);
+                        $stmt->store_result();
+                        $stmt->fetch();
+                    }
+                    else {
+                        die ("could not prepare statemtent: ".$conn->error);
+                    }
+                    $_SESSION['user_id'] = $user_id;
+                    $stmt->close();
                     $conn->close();
-                    header("refresh:1;url=myaccount.php?");
+                    if ($mode == 'redirect'){
+                        header("refresh:1;url=registration_confirmation.php");
                             die();
+                    }
+                    else {
+                    header("refresh:1;url=myaccount.php");
+                            die();
+                    }
                 }
                 else {
                     die ("An error has occured: ".$conn->error);

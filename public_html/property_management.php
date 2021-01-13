@@ -10,7 +10,6 @@ session_start();
     <meta charset="utf-8">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src='js/script.js'></script>
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
 </head>
 
 <body>
@@ -52,7 +51,7 @@ session_start();
             if (!empty($name) && !empty($capacity)) {
                 $sql = "INSERT INTO `apartments` (`name`, `capacity`, `description`, `price_night_regular`, `price_week_regular`, `price_weekend_regular`, `price_night_season`, `price_week_season`, `price_weekend_season` , `price_night_vacation`, `price_week_vacation`, `price_weekend_vacation`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ;";
                 if ($stmt = $conn->prepare($sql)) {
-                    $stmt->bind_param("sdsdddd", $name, $capacity, $description, $price_night, $price_week, $price_weekend, $discount);
+                    $stmt->bind_param("sdsddddddddd", $name, $capacity, $description, $price_night_regular, $price_week_regular, $price_weekend_regular, $price_night_season, $price_week_season, $price_weekend_season, $price_night_vacation, $price_week_vacation, $price_weekend_vacation);
                     $stmt->execute()
                         or die("could not send the data to the database: " . $conn->error);
                     $last_id = $conn->insert_id;
@@ -230,11 +229,11 @@ session_start();
             $conn->select_db($config['db_name'])
                 or die("Could not load database: " . $conn->errno);
 
-            $sql = "SELECT `name`, `capacity`, `description`, `price_night`, `price_week`, `price_weekend`, `discount` FROM `apartments` WHERE `apartment_id` = " . $id . ";";
+            $sql = "SELECT `name`, `capacity`, `description`, `price_night_regular`, `price_week_regular`, `price_weekend_regular`,  `price_night_season`, `price_week_season`, `price_weekend_season` , `price_night_vacation`, `price_week_vacation`, `price_weekend_vacation` FROM `apartments` WHERE `apartment_id` = " . $id . ";";
             if ($stmt = $conn->prepare($sql)) {
                 $stmt->execute()
                     or die("could not send the data to the database: " . $conn->error);
-                $stmt->bind_result($name, $capacity, $description, $price_night, $price_week, $price_weekend, $discount);
+                $stmt->bind_result($name, $capacity, $description, $price_night_regular, $price_week_regular, $price_weekend_regular, $price_night_season, $price_week_season, $price_weekend_season, $price_night_vacation, $price_week_vacation, $price_weekend_vacation);
                 $stmt->store_result();
                 $stmt->fetch()
                     or die("Could not retrieve data" . $conn->error);
