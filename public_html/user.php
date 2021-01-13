@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src='js/script.js'></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
 </head>
 
 <body>
@@ -27,9 +27,6 @@
             unset($_SESSION['loggedin']);
             unset($_SESSION['email']);
             unset($_SESSION['authorisation']);
-            setcookie('user_id', null, time() - 3600, '/');
-            //this wont delete the cookie, look into it
-            unset($_COOKIE['user_id']);
             echo "Logged Out Successfully!";
             header("refresh:1;url=index.php?");
             die();
@@ -38,11 +35,11 @@
             $password = filter_input(INPUT_POST, 'password');
 
             if (!empty($username) && !empty($password)) {
-                $sql = "SELECT `user_id` ,`email`, `password`, `authorisation` FROM `users` WHERE email='" . $username . "' ;";
+                $sql = "SELECT `email`, `password`, `authorisation` FROM `users` WHERE email='" . $username . "' ;";
                 if ($stmt = $conn->prepare($sql)) {
                     $stmt->execute()
                         or die("could not send the data to the database: " . $conn->error);
-                    $stmt->bind_result($retrievedData['user_id'], $retrievedData['email'], $retrievedData['password'], $retrievedData['authorisation']);
+                    $stmt->bind_result($retrievedData['email'], $retrievedData['password'], $retrievedData['authorisation']);
                     $stmt->store_result();
                     $stmt->fetch()
                         or die("Could not retrieve data Or the user does not exists");
@@ -52,15 +49,8 @@
                             $_SESSION['loggedin'] = TRUE;
                             $_SESSION['email'] = $retrievedData['email'];
                             $_SESSION['authorisation'] = $retrievedData['authorisation'];
-                            $_SESSION['user_id'] = $retrievedData['user_id'];
-                            setcookie("user_id", $retrievedData['user_id'], strtotime('+7 days'));
-                            if ($mode == 'redirect') {
-                                header("refresh:1;url=registration_confirmation.php");
-                                die();
-                            } else {
-                                header("refresh:1;url=myaccount.php?");
-                                die();
-                            }
+                            header("refresh:1;url=myaccount.php?");
+                            die();
                         } else {
                             die("Incorrect Password!");
                         }

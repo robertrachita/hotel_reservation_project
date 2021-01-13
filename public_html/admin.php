@@ -11,26 +11,14 @@
 </head>
 
 <body>
-    <?php include 'php/header.php'; 
-    if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE ||  $_SESSION['authorisation'] !== 1) {
-        echo "Your account does not have the authorisation to view this page.";
-        header("refresh:1;url=index.php?");
-        die();
-    } ?>
-    <div class="reservation_box">
-        <br><h2>Reservations Options</h2>
-        <form action='reservations.php' method='POST'>
-            <input type='submit' value='View pending reservations'>
-        </form>
-        <form action='reservations.php?mode=all' method='POST'>
-            <input type='submit' value='View all reservations'>
-        </form><br>
-        <h2>Users Options</h2>
-        <form action='view_users.php' method='POST'>
-            <input type='submit' value='View all users'>
-        </form><br>
-        <h2>Apartments Options</h2>
-        <?php
+    <?php include 'php/header.php' ?>
+    <div>
+        <?php 
+        if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE ||  $_SESSION['authorisation'] !== 1) {
+            echo "Your account does not have the authorisation to view this page.";
+            header("refresh:1;url=index.php?");
+                            die();
+        }
         echo "<form action='property_management.php?mode=add' method='POST'>
             <input type='submit' value='Add new Apartment'>
         </form>";
@@ -58,7 +46,7 @@
         } else {
             die("Could not prepare statement: " . $conn->errno);
         }
-        /* foreach ($data_array as $key => $value)
+       /* foreach ($data_array as $key => $value)
         {
             foreach ($value as $apartment)
             {
@@ -73,7 +61,8 @@
             <input type="submit" value="Edit Apartment" />
             <select id="input">
                 <?php
-                for ($i = 0; $i < $index; $i++) {
+                for ($i = 0; $i < $index; $i++ )
+                {
                     echo "<option value='" . $data_array['id'][$i] . "'>" . $data_array['name'][$i] . "</option>";
                 }
                 ?>
@@ -83,9 +72,10 @@
             <input type="submit" value="Delete Apartment" />
             <select id="delete">
                 <?php
-                for ($i = 0; $i < $index; $i++) {
-                    echo "<option value='" . $data_array['id'][$i] . "'>" . $data_array['name'][$i] . "</option>";
-                }
+                 for ($i = 0; $i < $index; $i++ )
+                 {
+                     echo "<option value='" . $data_array['id'][$i] . "'>" . $data_array['name'][$i] . "</option>";
+                 }
                 ?>
             </select>
         </form>
