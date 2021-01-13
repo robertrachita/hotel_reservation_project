@@ -20,6 +20,8 @@
             session_start();
             if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === TRUE) {
                 echo "<a href='user.php?mode=logout'>Log Out</a>";
+                echo "<a href='register.php?mode=editinfo'>Edit Info</a>";
+                echo "<a href='register.php?mode=changepass'>Change Password</a>";
             } else {
                 echo "<a href='user.php'>Login</a>";
             }
