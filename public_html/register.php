@@ -7,7 +7,6 @@
     <meta charset="utf-8">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src='js/script.js'></script>
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
 </head>
 
 <body>
@@ -15,14 +14,13 @@
     <div class='formulier'>
         <?php
         $mode = filter_input(INPUT_GET, 'mode');
-        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === TRUE) {
-            //echo "You are already logged in";
-            //header("refresh:1;url=myaccount.php?");
-            //die();
+        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == TRUE && empty($mode)) {
+            echo "You are already logged in";
+            header("refresh:1;url=myaccount.php?");
+            die();
         }
         $submit = filter_input(INPUT_POST, 'submit');
 
-        $mode = filter_input(INPUT_GET, 'mode');
         if (isset($submit)) {
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
             $password = filter_input(INPUT_POST, 'password');
@@ -56,22 +54,22 @@
                     
                     echo "<form action = 'update_info.php' method='POST' >
                     <p><label for='email'>Email*</label></p>
-                    <input type='email' id='email' name='email' value=" . $retrievedData['email'] . " required>
+                    <input type='email' id='email' name='email' value='" . $retrievedData['email'] . "' required>
                     <p><label for='last_name'>Last Name*</label></p>
-                    <input type='text' id='text' name='last_name' value=" . $retrievedData['last_name'] . " required>
+                    <input type='text' id='text' name='last_name' value='" . $retrievedData['last_name'] . "' required>
                     <p><label for='first_name'>First Name*</label></p>
-                    <input type='text' id='text' name='first_name' value=" . $retrievedData['first_name'] . " required><p><label for='country'>Country*</label></p>
-                    <input type='text' id='country' name='country' value=" . $retrievedData['country'] . " required>
+                    <input type='text' id='text' name='first_name' value='" . $retrievedData['first_name'] . "' required><p><label for='country'>Country*</label></p>
+                    <input type='text' id='country' name='country' value='" . $retrievedData['country'] . "' required>
                     <p><label for='city'>City</label></p>
-                    <input type='text' id='city' name='city' value=" . $retrievedData['city'] . ">
+                    <input type='text' id='city' name='city' value='" . $retrievedData['city'] . "'>
                     <p><label for='street'>Street</label></p>
-                    <input type='text' id='street' name='street' value=" . $retrievedData['street'] . ">
+                    <input type='text' id='street' name='street' value='" . $retrievedData['street'] . "'>
                     <p><label for='postal_code'>Postal Code*</label></p>
-                    <input type='text' id='postal_code' name='postal_code' value=" . $retrievedData['postal_code'] . " required>
+                    <input type='text' id='postal_code' name='postal_code' value='" . $retrievedData['postal_code'] . "' required>
                     <p><label for='house_number'>House number</label></p>
-                    <input type='text' id='house_number' name='house_number' value=" . $retrievedData['house_number'] . ">
+                    <input type='text' id='house_number' name='house_number' value='" . $retrievedData['house_number'] . "'>
                     <p><label for='telephone_number'>Telephone number*</label></p>
-                    <input type='text' id='telephone_number' name='telephone_number' value=" . $retrievedData['telephone_number'] . " required><br>
+                    <input type='text' id='telephone_number' name='telephone_number' value='" . $retrievedData['telephone_number'] . "' required><br>
                     <input type='submit' name='update' value='Update'>
                     <input type='reset' name='reset' value='Reset'>    
                     </form>";
@@ -90,7 +88,7 @@
             <p><label for='newpassword'>New Password*</label></p>
             <input type='password' id='newpassword' name='newpassword' required>
             <p><label for='re_password'>Retype New Password*</label></p>
-            <input type='password' id='re_password' name='re_password' required>
+            <input type='password' id='re_password' name='re_password' required><br>
             <input type='submit' name='update' value='Update'>
             <input type='reset' name='reset' value='Reset'>    
             </form>";    

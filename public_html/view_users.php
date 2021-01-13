@@ -15,6 +15,7 @@
         echo "Your account does not have the authorisation to view this page.";
         header("refresh:1;url=index.php?");
         die();
+        //TODO highlight selected user
     }
     $submit = filter_input(INPUT_POST, 'submit');
     if (isset($submit)) {
@@ -60,7 +61,7 @@
             $stmt->store_result();
             if ($stmt->num_rows > 0) {
                 if ($selected == $user['id']){
-                    echo 'yeah';
+                    echo 'this should echo something';
                 }
                 echo "<table><tr>
                     <th>User id</th><th>Last Name</th><th>First name</th><th>Email</th><th>Date of birth</th><th>Country</th><th>City</th><th>Street</th><th>Postal Code</th><th>House Number</th><th>Telephone Number</th><th>Authorisation</th><th>Make admin?</th>

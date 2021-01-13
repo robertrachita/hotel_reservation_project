@@ -86,6 +86,6 @@ INSERT INTO `apartments`(`name`, `description`, `capacity`, `price_night_regular
 ('Lobke', 'for', 5, 70, 475, 162.5, 75, 500, 187.5, 85, 585, 200),
 ('Maam', 'these', 6, 70, 475, 162.5, 75, 525, 187.5, 85, 585, 200),
 ('Test', 'apartments', 2, 10, 90, 15, 10, 90, 15, 10, 90, 15);
-/* default bcrypt hash, password is admin, for developing purposes only*/
+/* (default) bcrypt hash, password is admin, for developing purposes only*/
 INSERT INTO `users`(`last_name`, `first_name`, `country`, `city`, `email`, `password`, `authorisation`) values
     ('Peters', 'Victor', 'Netherlands', 'Groningen', 'admin@admin.com', '$2y$12$DznTtqjtDvfT6RvFfQdL7OmU1l4fsycMhVD38yG7eCO16v3jLzPKy', '1');

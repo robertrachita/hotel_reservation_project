@@ -49,5 +49,6 @@ function calc_price($arrival, $departure, $apartment)
             die("Error. The dates submited are not valid!");
         }
     }
+    $price = number_format($price, 2, '.', '');
     return $price;
 }

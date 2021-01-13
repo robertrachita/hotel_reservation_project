@@ -369,12 +369,13 @@ article .bottom .right {
     height: 200px;
 }
 
+
 /* Contact Us Content */
+
 .c_box {
     width: 280px;
     height: 100%;
     margin: auto;
-
     position: absolute;
     top: 50%;
     left: 50%;
@@ -483,7 +484,7 @@ article .bottom .right {
     display: block;
     width: 120px;
     height: 120px;
-    background-color: rgba(240, 230, 140, .5); 
+    background-color: rgba(240, 230, 140, .5);
     border-radius: 50%;
     position: absolute;
     top: 0;
@@ -501,6 +502,8 @@ article .bottom .right {
     cursor: pointer;
     transform: scale(1) rotate(360deg);
 }
+
+
 /* Footer */
 
 footer {
@@ -793,7 +796,8 @@ textarea {
     text-align: center;
 }
 
-.reservation_apartments_box {
+.reservation_apartments_box,
+.reservation_apartments_box_unavailable {
     border-radius: 5%;
     border: 1px solid gray;
     padding: 1%;
@@ -804,4 +808,47 @@ textarea {
 .reservation_apartments_box p {
     margin: 15px;
     margin-left: 0px;
+}
+
+.reservation_apartments_box_unavailable img {
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}
+
+.reservation_apartments_box_unavailable p {
+    margin: 15px;
+    margin-left: 0px;
+}
+
+.reservation_apartments_box_unavailable h2 {
+    color: #606060;
+}
+
+.reservation_box {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table,
+td,
+th {
+    border: 1px solid gray;
+}
+
+tr:nth-child(even) {
+    background-color: white;
+}
+
+#selected_user {
+    background-color: #e7e77e;
 }

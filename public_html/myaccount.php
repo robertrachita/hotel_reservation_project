@@ -7,27 +7,31 @@
     <meta charset="utf-8">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src='js/script.js'></script>
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
 </head>
 
 <body>
     <?php include 'php/header.php' ?>
-    <div>
+    <div class="reservation_box">
         <?php 
         if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== TRUE) {
             echo "You are not logged in.";
             header("refresh:1;url=index.php?");
                             die();
         }
-        echo "   hello there, ".$_SESSION['email'];
-        echo "<br>";
-        echo $_COOKIE['user_id'];
+        echo "<h4>Hello there, ".$_SESSION['email']. "</h4>";
         /*features to do
-            *-view account details/edit details
-            *-change password
             *-view past/current reservations
             */
         ?>
+        <form method='POST' action="register.php?mode=editinfo">
+            <input type='submit' name='edit' value='Edit your account'>
+        </form>
+        <form method='POST' action="register.php?mode=changepass">
+            <input type='submit' name='change' value='Change Your Password'>
+        </form>
+        <form method='POST' action="#">
+            <input type='submit' name='view' value='View your reservations'>
+        </form>
     </div>
     <?php include 'php/footer.php' ?>
 </body>

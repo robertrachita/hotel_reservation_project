@@ -7,7 +7,6 @@
     <meta charset="utf-8">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src='js/script.js'></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
@@ -28,7 +27,6 @@
             unset($_SESSION['email']);
             unset($_SESSION['authorisation']);
             setcookie('user_id', null, time() - 3600, '/');
-            //this wont delete the cookie, look into it
             unset($_COOKIE['user_id']);
             echo "Logged Out Successfully!";
             header("refresh:1;url=index.php?");
