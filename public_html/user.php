@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src='js/script.js'></script>
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
@@ -27,8 +27,9 @@
             unset($_SESSION['loggedin']);
             unset($_SESSION['email']);
             unset($_SESSION['authorisation']);
-            unset($_COOKIE['user_id']);
             setcookie('user_id', null, time() - 3600, '/');
+            //this wont delete the cookie, look into it
+            unset($_COOKIE['user_id']);
             echo "Logged Out Successfully!";
             header("refresh:1;url=index.php?");
             die();
@@ -51,9 +52,15 @@
                             $_SESSION['loggedin'] = TRUE;
                             $_SESSION['email'] = $retrievedData['email'];
                             $_SESSION['authorisation'] = $retrievedData['authorisation'];
+                            $_SESSION['user_id'] = $retrievedData['user_id'];
                             setcookie("user_id", $retrievedData['user_id'], strtotime('+7 days'));
-                            header("refresh:1;url=myaccount.php?");
-                            die();
+                            if ($mode == 'redirect') {
+                                header("refresh:1;url=registration_confirmation.php");
+                                die();
+                            } else {
+                                header("refresh:1;url=myaccount.php?");
+                                die();
+                            }
                         } else {
                             die("Incorrect Password!");
                         }
