@@ -7,7 +7,6 @@
     <meta charset="utf-8">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src='js/script.js'></script>
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
 </head>
 
 <body>
@@ -126,7 +125,7 @@
             rename($path, "images/apartments/" . $header . "/header_image." . $ext);
             rename("images/apartments/" . $header . "/tmp." . $ext_old, "images/apartments/" . $header . "/" . $fileToChange . $ext_old,);
             echo "Changes were successful! You will be redirected shortly back to the previous panel";
-            header("refresh:1;url=edit_images.php?id=" . $header . "");
+            header("refresh:1;url=image_redirect.php?id=" . $header . "");
             die();
         }
         ?>

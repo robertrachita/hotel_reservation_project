@@ -7,17 +7,15 @@
     <meta charset="utf-8">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src='js/script.js'></script>
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">
--->
 </head>
 
 <body>
     <?php include 'php/header.php' ?>
     <div class="searchbox">
-        <form action="" method="POST">
-            <input name="entryDate" type="date" placeholder="Arrival">
-            <input name="entryDate" type="date" placeholder="Departure">
-            <input name="submit" type="submit" value=" ">
+        <form action="reservation_apartment.php" method="POST">
+            <input type="date" placeholder="Arrival" name='arrival' required>
+            <input type="date" placeholder="Departure" name='departure' required>
+            <input name="submit" type="submit" value=' '>
         </form>
     </div>
     <content>

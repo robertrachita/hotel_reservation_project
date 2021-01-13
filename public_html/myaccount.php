@@ -20,9 +20,11 @@
                             die();
         }
         echo "   hello there, ".$_SESSION['email'];
+        echo "<br>";
+        echo $_COOKIE['user_id'];
         /*features to do
-            *-view details/edit details
-            *-change pass
+            *-view account details/edit details
+            *-change password
             *-view past/current reservations
             */
         ?>
