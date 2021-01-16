@@ -89,3 +89,19 @@ INSERT INTO `apartments`(`name`, `description`, `capacity`, `price_night_regular
 /* default bcrypt hash, password is admin, for developing purposes only*/
 INSERT INTO `users`(`last_name`, `first_name`, `country`, `city`, `email`, `password`, `authorisation`) values
     ('Peters', 'Victor', 'Netherlands', 'Groningen', 'admin@admin.com', '$2y$12$DznTtqjtDvfT6RvFfQdL7OmU1l4fsycMhVD38yG7eCO16v3jLzPKy', '1');
+
+CREATE TABLE `article` (
+  `id` int(11) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `images` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `article` (`id`, `title`, `images`) VALUES
+(1, 'Vaccine for Covid 19', 'covid.jpg'),
+(2, 'Covid-19 Cases in Netherlands', 'covid-19.jpg'),
+(3, 'Explore Netherlands', 'travel.jpg'),
+(4, "It's Getting Colder in Netherlands", 'winter.jpg'),
+(5, 'Nightlife in Netherlands', 'party.jpg'),
+(6, 'Cost of Life in Netherlands', 'money.jpg'),
+(7, 'Why Study Career Coaching is Important for Your Life', 'scc.jpg'),
+(8, 'Too Much Coding Can Harm Your Brain', 'barin.png'),
+(9, 'Cybernetic Arms for Humans', 'cyber.jpg');

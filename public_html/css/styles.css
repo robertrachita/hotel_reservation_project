@@ -364,6 +364,15 @@ article .bottom .right {
     text-align: center;
 }
 
+.content_main .cright .right_news a {
+    text-decoration: none;
+    color: black;
+}
+
+.content_main .cright .right_news a:hover {
+    cursor: pointer;
+}
+
 .content_main .cright .right_news img {
     width: 100%;
     height: 200px;
