@@ -7,7 +7,7 @@
             <a href="myaccount.php">My account</a>
             <a href="about.php">About</a>
             <a href="article.php">News</a>
-            <a href="contact.html">Contact</a>
+            <a href="contact.php">Contact</a>
         </div>
     </div>
     <div class="banner">
