@@ -364,6 +364,15 @@ article .bottom .right {
     text-align: center;
 }
 
+.content_main .cright .right_news a {
+    text-decoration: none;
+    color: black;
+}
+
+.content_main .cright .right_news a:hover {
+    cursor: pointer;
+}
+
 .content_main .cright .right_news img {
     width: 100%;
     height: 200px;
@@ -376,10 +385,10 @@ article .bottom .right {
     width: 280px;
     height: 100%;
     margin: auto;
-    position: absolute;
+    /* position: absolute; */
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    /* transform: translate(-50%, -50%); */
 }
 
 .c_box .c_textbox img {

@@ -77,8 +77,10 @@
                     $i++;
                 }
                 ?>
-
             </div>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis repudiandae sapiente modi placeat dignissimos nesciunt illum dicta alias ducimus totam!</p><br>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore architecto explicabo totam pariatur impedit eius ipsum blanditiis ab assumenda animi maxime illo placeat aliquam nulla ex atque, adipisci cupiditate a, distinctio ducimus beatae sed rem numquam. Magnam repellat sit perspiciatis quidem velit illum, minima, inventore beatae laboriosam dolore hic placeat!</p><br>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae optio itaque, sed inventore adipisci officia eos quisquam vero magni commodi ipsa iusto ducimus. Excepturi incidunt necessitatibus quo nihil tempora labore inventore quis saepe explicabo harum aliquam ullam, perferendis beatae similique molestias. Dignissimos voluptas excepturi doloribus exercitationem ducimus consectetur omnis ullam accusamus sint dicta magnam quam, laboriosam error dolorum provident ab? Sit voluptate facere sapiente aspernatur perspiciatis! Tempora dolore, sapiente est aliquam illo eligendi amet illum ut quos, numquam magnam impedit. Nobis quam accusantium illum ipsa rem cumque hic est. Laudantium eaque quas blanditiis quo sapiente similique temporibus consequatur distinctio eum!	</p>
         </div>
     </content>
 

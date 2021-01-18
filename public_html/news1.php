@@ -9,12 +9,33 @@
     <script src='js/script.js'></script>
 </head>
 <body>
-    <?php include 'php/header.php' ?>
+    <?php include 'php/header.php';
+        $id = $_GET['id'];
+        $config = parse_ini_file('../config.ini');
+        $conn = new mysqli($config['db_host'], $config['db_user'], $config['db_pass']);
+        if ($conn->connect_error) {
+            die("Conection failed: " . $conn->connect_errno);
+        }
+        $conn->select_db($config['db_name'])
+            or die("Could not load database: " . $conn->errno);
+        $sql = "SELECT `title`,`images` FROM `article` WHERE id = $id ;";
+        if ($stmt = $conn->prepare($sql)) {
+            $stmt->execute()
+                or die ("Could not load the data" . $conn->error);
+            $stmt->bind_result($title, $img);
+            $stmt->store_result();    
+        } else {
+            die("Could not load the data " . $conn->error);
+        }    
+
+    ?>
     <div class="news_content">
-        <h1>Vaccine for Covid-19</h1>
+    <?php while ($stmt->fetch()) : ?>
+        <h1><?= $title; ?></h1>
         <div class="content_main">
-            <div class="cleft">
-                <img src="images/covid.jpg">
+            <div class="cleft"> 
+                <img src="images/<?= $img; ?>">
+    <?php endwhile; ?>    
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptas aliquid ex soluta similique, debitis sint quidem tempore itaque sequi. Odit repudiandae pariatur hic praesentium perferendis porro sed voluptatibus accusamus at molestias rerum sequi, itaque vitae excepturi ipsam optio repellat exercitationem! Facilis odio eum ullam aperiam error debitis consequatur, quis ipsum.</p>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius id deleniti repellat nihil magni suscipit qui, quis sunt cum possimus rerum consequuntur libero porro eveniet neque mollitia molestiae reiciendis. Aspernatur aliquid eligendi harum quaerat quis cumque corporis. Ad, quasi labore? Porro alias ullam quod fugit quo pariatur quibusdam, sunt consectetur!</p>
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores, fuga alias voluptates fugit earum adipisci nisi consequuntur rem commodi eaque.</p>
@@ -26,13 +47,17 @@
             <div class="cright">
                 <h1>Covid News</h1>
                 <div class="right_news">
+                    <a href="news1.php?id=1">
                     <img src="images/covid.jpg">
                     <h2>Vaccine for Covid-19</h2>
+                    </a>    
                 </div>
                 <br><br>
                 <div class="right_news">
+                    <a href="news1.php?id=2">
                     <img src="images/covid-19.jpg">
                     <h2>Covid-19 Cases in Netherlands</h2>
+                    </a>
                 </div>
             </div>
         </div>
