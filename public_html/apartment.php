@@ -33,14 +33,8 @@
         }
         $path = "images/apartments/" . $id . "/header_image.{jpeg,gif,png,jpg}";
         $headerimage = glob($path, GLOB_BRACE);
-        //echo "<img id='apartment-img' src='" . $headerimage[0] . "' alt='header_image'>";
         ?>
         <div class="apartment-container">
-
-            <!--<div class='mySlides'>
-                <div class='numbertext'>1 / 6</div>
-                <img src="<?php echo $headerimage[0]; ?>" style='width:100%' alt='image'>
-            </div>-->
             <?php
             $path = "images/apartments/" . $id . "/";
             if (is_dir($path)) {

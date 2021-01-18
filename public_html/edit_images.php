@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Admin Panel</title>
+    <title>Edit images</title>
     <link rel='stylesheet' href='css/styles.css' type="text/css">
     <meta charset="utf-8">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -113,7 +113,6 @@
             foreach ($scan as $file) {
                 if (str_contains($file, 'header_image') !== false) {
                     $ext_old = pathinfo($file, PATHINFO_EXTENSION);
-                    //echo $ext_old;
                     break;
                 }
             }

@@ -85,7 +85,6 @@ session_start();
             $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
             $capacity = filter_input(INPUT_POST, 'capacity', FILTER_SANITIZE_NUMBER_FLOAT);
             $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
-            //delete this later
             if (empty($description)) {
                 $description = ' ';
             }

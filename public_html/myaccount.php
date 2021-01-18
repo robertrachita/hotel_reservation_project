@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Admin Panel</title>
+    <title>My account</title>
     <link rel='stylesheet' href='css/styles.css' type="text/css">
     <meta charset="utf-8">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -29,7 +29,7 @@
         <form method='POST' action="register.php?mode=changepass">
             <input type='submit' name='change' value='Change Your Password'>
         </form>
-        <form method='POST' action="#">
+        <form method='POST' action="view_res.php">
             <input type='submit' name='view' value='View your reservations'>
         </form>
     </div>
