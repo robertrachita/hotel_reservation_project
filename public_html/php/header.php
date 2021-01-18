@@ -2,7 +2,12 @@
     <div class="menu">
         <button onclick="toggleMenu()" class="dropbtn" id="buttonImage"> </button>
         <div id="myDropdown" class="dropdown-content">
-            <a href="admin.php">Admin DELETE THIS LATER</a>
+            <?php 
+             session_start();
+             if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === TRUE &&  $_SESSION['authorisation'] == 1) {
+                echo "<a href='admin.php'>Admin Panel</a>";
+             }
+            ?>
             <a href="index.php">Home</a>
             <a href="myaccount.php">My account</a>
             <a href="about.php">About</a>
@@ -17,16 +22,15 @@
        <button onclick="toggleMenuRight()" class="dropbtn" id="buttonImageAccount"> </button>
         <div id="dropdownRight" class="dropdown-content-right">
          <?php
-            session_start();
+           
             if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === TRUE) {
                 echo "<a href='user.php?mode=logout'>Log Out</a>";
-                echo "<a href='register.php?mode=editinfo'>Edit Info</a>";
-                echo "<a href='register.php?mode=changepass'>Change Password</a>";
+                echo "<a href='myaccount.php'>My account</a>";
             } else {
                 echo "<a href='user.php'>Login</a>";
+                echo "<a href='register.php'>Register</a>";
             }
             ?>
-            <a href="register.php">Register</a>
         </div>
     </div>
 </header>

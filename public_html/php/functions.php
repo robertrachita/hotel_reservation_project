@@ -5,7 +5,7 @@ function calc_price($arrival, $departure, $apartment)
     $price = 0;
     $interval = date_diff(date_create($arrival), date_create($departure));
     $nights = $interval->format('%a');
-    $nights = (int)$nights;
+    $nights = intval($nights);
     $arrival_date = date('N', strtotime($arrival));
     $departure_date = date('N', strtotime($departure));
     $year = substr($arrival, 0, 4);
@@ -49,5 +49,6 @@ function calc_price($arrival, $departure, $apartment)
             die("Error. The dates submited are not valid!");
         }
     }
+    $price = number_format($price, 2, '.', '');
     return $price;
 }
