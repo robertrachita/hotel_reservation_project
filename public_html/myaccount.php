@@ -19,9 +19,6 @@
                             die();
         }
         echo "<h4>Hello there, ".$_SESSION['email']. "</h4>";
-        /*features to do
-            *-view past/current reservations
-            */
         ?>
         <form method='POST' action="register.php?mode=editinfo">
             <input type='submit' name='edit' value='Edit your account'>
@@ -31,6 +28,9 @@
         </form>
         <form method='POST' action="view_res.php">
             <input type='submit' name='view' value='View your reservations'>
+        </form>
+        <form action='view_contact.php' method='POST'>
+            <input type='submit' value='View contact messages'>
         </form>
     </div>
     <?php include 'php/footer.php' ?>

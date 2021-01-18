@@ -34,7 +34,7 @@
         <h1><?= $title; ?></h1>
         <div class="content_main">
             <div class="cleft"> 
-                <img src="images/<?= $img; ?>">
+                <img src="images/<?= $img; ?>" alt='error'>
     <?php endwhile; ?>    
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptas aliquid ex soluta similique, debitis sint quidem tempore itaque sequi. Odit repudiandae pariatur hic praesentium perferendis porro sed voluptatibus accusamus at molestias rerum sequi, itaque vitae excepturi ipsam optio repellat exercitationem! Facilis odio eum ullam aperiam error debitis consequatur, quis ipsum.</p>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius id deleniti repellat nihil magni suscipit qui, quis sunt cum possimus rerum consequuntur libero porro eveniet neque mollitia molestiae reiciendis. Aspernatur aliquid eligendi harum quaerat quis cumque corporis. Ad, quasi labore? Porro alias ullam quod fugit quo pariatur quibusdam, sunt consectetur!</p>
@@ -55,7 +55,7 @@
                 <br><br>
                 <div class="right_news">
                     <a href="news1.php?id=2">
-                    <img src="images/covid-19.jpg">
+                    <img src="images/covid-19.jpg" alt='error'>
                     <h2>Covid-19 Cases in Netherlands</h2>
                     </a>
                 </div>

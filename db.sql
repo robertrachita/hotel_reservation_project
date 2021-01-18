@@ -68,6 +68,7 @@ CREATE TABLE IF NOT EXISTS `contact` (
     `message`           VARCHAR(255) NOT NULL,
     `response`          VARCHAR(255),
     `date`              DATE NOT NULL,
+    `date_response`     DATE,
     `user_id_contact`   INT,
 
     CONSTRAINT PK_contact_id PRIMARY KEY (contact_id),
@@ -90,11 +91,14 @@ INSERT INTO `apartments`(`name`, `description`, `capacity`, `price_night_regular
 INSERT INTO `users`(`last_name`, `first_name`, `country`, `city`, `email`, `password`, `authorisation`) values
     ('Peters', 'Victor', 'Netherlands', 'Groningen', 'admin@admin.com', '$2y$12$DznTtqjtDvfT6RvFfQdL7OmU1l4fsycMhVD38yG7eCO16v3jLzPKy', '1');
 
-CREATE TABLE `article` (
-  `id` int(11) NOT NULL,
-  `title` varchar(100) NOT NULL,
-  `images` varchar(100) NOT NULL
+CREATE TABLE IF NOT EXISTS `article` (
+  `id`      int(11) NOT NULL,
+  `title`   varchar(100) NOT NULL,
+  `images`  varchar(100) NOT NULL, 
+
+  CONSTRAINT PK_contact_id PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 INSERT INTO `article` (`id`, `title`, `images`) VALUES
 (1, 'Vaccine for Covid 19', 'covid.jpg'),
 (2, 'Covid-19 Cases in Netherlands', 'covid-19.jpg'),

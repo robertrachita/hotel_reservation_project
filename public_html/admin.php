@@ -27,6 +27,9 @@
         <h2>Users Options</h2>
         <form action='view_users.php' method='POST'>
             <input type='submit' value='View all users'>
+        </form>
+        <form action='view_contact.php' method='POST'>
+            <input type='submit' value='View contact messages'>
         </form><br>
         <h2>Apartments Options</h2>
         <?php
