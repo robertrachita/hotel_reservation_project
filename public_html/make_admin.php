@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Reservations</title>
+    <title>Make admin</title>
     <link rel='stylesheet' href='css/styles.css' type="text/css">
     <meta charset="utf-8">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

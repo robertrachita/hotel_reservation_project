@@ -41,8 +41,6 @@
             while ($stmt->fetch()) {
                 $path = "images/apartments/".$id."/header_image.{jpeg,gif,png,jpg}";
                 $image = glob($path, GLOB_BRACE);
-                //echo $image[0];
-               // echo "<img src='".$image[0]."' alt='error' >";
                 if ($counter%2 !== 0) {
                    echo "<section>
                     <div class='imageBox' style='background: url(".$image[0]."); background-size: 100% 100%;'>
